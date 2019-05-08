@@ -15,11 +15,12 @@ import static org.bytedeco.javacpp.opencv_objdetect.*;
 public class Smoother {
 
     public static void main(String[] args) throws Exception {
-        String classifierName = null;
+        String classifierName;
         if (args.length > 0) {
             classifierName = args[0];
         } else {
-            URL url = new URL("https://raw.github.com/opencv/opencv/master/data/haarcascades/haarcascade_frontalface_alt.xml");
+            String address = "https://raw.github.com/opencv/opencv/master/data/haarcascades/haarcascade_frontalface_alt.xml";
+            URL url = new URL(address);
             File file = Loader.cacheResource(url);
             classifierName = file.getAbsolutePath();
         }
@@ -29,10 +30,6 @@ public class Smoother {
 
         // We can "cast" Pointer objects by instantiating a new object of the desired class.
         CascadeClassifier classifier = new CascadeClassifier(classifierName);
-        if (classifier == null) {
-            System.err.println("Error loading classifier file \"" + classifierName + "\".");
-            System.exit(1);
-        }
 
         // The available FrameGrabber classes include OpenCVFrameGrabber (opencv_videoio),
         // DC1394FrameGrabber, FlyCaptureFrameGrabber, OpenKinectFrameGrabber, OpenKinect2FrameGrabber,
