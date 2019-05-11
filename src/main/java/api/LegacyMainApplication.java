@@ -13,25 +13,12 @@ public class LegacyMainApplication {
     public static void main(String[] args) throws Exception {
         FrontFaceClassifier frontFaceClassifier = new FrontFaceClassifier();
         CascadeClassifier classifier = frontFaceClassifier.getClassifier();
-
-        // The available FrameGrabber classes include OpenCVFrameGrabber (opencv_videoio),
-        // DC1394FrameGrabber, FlyCaptureFrameGrabber, OpenKinectFrameGrabber, OpenKinect2FrameGrabber,
-        // RealSenseFrameGrabber, PS3EyeFrameGrabber, VideoInputFrameGrabber, and FFmpegFrameGrabber.
         FrameGrabber grabber = FrameGrabber.createDefault(0);
-        grabber.start();
-
-        // CanvasFrame, FrameGrabber, and FrameRecorder use Frame objects to communicate image data.
-        // We need a FrameConverter to interface with other APIs (Android, Java 2D, JavaFX, Tesseract, OpenCV, etc).
         OpenCVFrameConverter.ToMat converter = new OpenCVFrameConverter.ToMat();
+        CanvasFrame frame = new CanvasFrame("Some Title", CanvasFrame.getDefaultGamma() / grabber.getGamma());
 
-        // FAQ about IplImage and Mat objects from OpenCV:
-        // - For custom raw processing of data, createBuffer() returns an NIO direct
-        //   buffer wrapped around the memory pointed by imageData, and under Android we can
-        //   also use that Buffer with Bitmap.copyPixelsFromBuffer() and copyPixelsToBuffer().
-        // - To get a BufferedImage from an IplImage, or vice versa, we can chain calls to
-        //   Java2DFrameConverter and OpenCVFrameConverter, one after the other.
-        // - Java2DFrameConverter also has static copy() methods that we can use to transfer
-        //   data more directly between BufferedImage and IplImage or Mat via Frame objects.
+
+        grabber.start();
         Mat grabbedImage = converter.convert(grabber.grab());
         int height = grabbedImage.rows();
         int width = grabbedImage.cols();
@@ -50,7 +37,6 @@ public class LegacyMainApplication {
         // CanvasFrame is a JFrame containing a Canvas component, which is hardware accelerated.
         // It can also switch into full-screen mode when called with a screenNumber.
         // We should also specify the relative monitor/camera response for proper gamma correction.
-        CanvasFrame frame = new CanvasFrame("Some Title", CanvasFrame.getDefaultGamma() / grabber.getGamma());
 
         // Let's create some random 3D rotation...
         Mat randomR = new Mat(3, 3, CV_64FC1),
