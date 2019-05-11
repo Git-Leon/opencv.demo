@@ -37,6 +37,7 @@ public class LegacyMainApplication {
         // We can easily and efficiently access the elements of matrices and images
         // through an Indexer object with the set of get() and put() methods.
         DoubleIndexer Ridx = randomR.createIndexer();
+        randomAxis.createIndexer();
         opencv_calib3d.Rodrigues(randomAxis, randomR);
         double f = (width + height) / 2.0;
         Ridx.put(0, 2, Ridx.get(0, 2) * f);
