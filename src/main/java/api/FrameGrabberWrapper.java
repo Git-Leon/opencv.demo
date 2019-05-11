@@ -2,11 +2,6 @@ package api;
 
 import org.bytedeco.javacv.Frame;
 import org.bytedeco.javacv.FrameGrabber;
-import org.bytedeco.javacv.FrameRecorder;
-
-import java.util.Map;
-import java.util.concurrent.Callable;
-import java.util.concurrent.ExecutionException;
 
 public class FrameGrabberWrapper extends FrameGrabber {
     private final FrameGrabber grabber;
@@ -18,6 +13,7 @@ public class FrameGrabberWrapper extends FrameGrabber {
     public FrameGrabberWrapper() {
         this(createDefault());
     }
+
 
     @Override
     public void start() {
@@ -63,6 +59,12 @@ public class FrameGrabberWrapper extends FrameGrabber {
             throw new Error(e);
         }
     }
+
+    @Override
+    public double getGamma() {
+        return grabber.getGamma();
+    }
+
     private static FrameGrabber createDefault() {
         try {
             return FrameGrabber.createDefault(0);

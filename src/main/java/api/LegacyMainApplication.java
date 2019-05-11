@@ -16,7 +16,7 @@ public class LegacyMainApplication {
     public static void main(String[] args) throws Exception {
         FrontFaceClassifier frontFaceClassifier = new FrontFaceClassifier();
         CascadeClassifier classifier = frontFaceClassifier.getClassifier();
-        FrameGrabber grabber = FrameGrabber.createDefault(0);
+        FrameGrabber grabber = new FrameGrabberWrapper();
         CanvasFrame frame = new CanvasFrame("Some Title", CanvasFrame.getDefaultGamma() / grabber.getGamma());
         FrameConverterWrapper converter = new FrameConverterWrapper();
 
@@ -29,23 +29,8 @@ public class LegacyMainApplication {
 
         FrameRecorder recorder = new FrameRecorderWrapper(grabbedImage);
         recorder.start();
-
-        // Let's create some random 3D rotation...
-        Mat randomR = new Mat(3, 3, CV_64FC1);
-        Mat randomAxis = new Mat(3, 1, CV_64FC1);
-
-        // We can easily and efficiently access the elements of matrices and images
-        // through an Indexer object with the set of get() and put() methods.
-        DoubleIndexer Ridx = randomR.createIndexer();
-        randomAxis.createIndexer();
-        opencv_calib3d.Rodrigues(randomAxis, randomR);
-        double f = (width + height) / 2.0;
-        Ridx.put(0, 2, Ridx.get(0, 2) * f);
-        Ridx.put(1, 2, Ridx.get(1, 2) * f);
-        Ridx.put(2, 0, Ridx.get(2, 0) / f);
-        Ridx.put(2, 1, Ridx.get(2, 1) / f);
-        System.out.println(Ridx);
-
+        Rotator3D rotator3D = new Rotator3D();
+        rotator3D.rotate(grabbedImage);
         // We can allocate native arrays using constructors taking an integer as argument.
         Point hatPoints = new Point(3);
         Mat grayImage = new Mat(height, width, CV_8UC1);
@@ -82,7 +67,7 @@ public class LegacyMainApplication {
                 drawContours(grabbedImage, new MatVector(points), -1, Scalar.BLUE);
             }
 
-            warpPerspective(grabbedImage, rotatedImage, randomR, rotatedImage.size());
+            warpPerspective(grabbedImage, rotatedImage, rotator3D.getRandomR(), rotatedImage.size());
 
             Frame rotatedFrame = converter.convert(rotatedImage);
             frame.showImage(rotatedFrame);

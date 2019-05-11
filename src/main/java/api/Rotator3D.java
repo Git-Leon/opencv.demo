@@ -8,13 +8,27 @@ import org.bytedeco.javacpp.opencv_core;
 import static org.bytedeco.javacpp.opencv_core.CV_64FC1;
 
 public class Rotator3D {
-    private final opencv_core.Mat randomR;
+    private opencv_core.Mat randomR;
     private final opencv_core.Mat randomAxis;
+    private String expectedIndexerString = new StringBuilder() // FIXME
+            .append("[ 1.0, 0.0, 0.0\n")
+            .append("  0.0, 1.0, 0.0\n")
+            .append("  0.0, 0.0, 1.0 ]").toString();
 
     public Rotator3D() {
         // Let's create some random 3D rotation...
         this.randomR = new opencv_core.Mat(3, 3, CV_64FC1);
         this.randomAxis = new opencv_core.Mat(3, 1, CV_64FC1);
+    }
+
+    private DoubleIndexer createIndexer() {
+        DoubleIndexer indexer = randomR.createIndexer();
+        while(!indexer.toString().equals(expectedIndexerString)) {
+            System.out.println(indexer);
+            System.out.println("Assigning new value to randomR...");
+            this.randomR = new opencv_core.Mat(3, 3, CV_64FC1);
+        }
+        return indexer;
     }
 
     public void rotate(opencv_core.Mat mat) {
