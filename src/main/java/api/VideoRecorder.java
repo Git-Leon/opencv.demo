@@ -7,7 +7,7 @@ import org.bytedeco.javacv.OpenCVFrameConverter;
 public class VideoRecorder {
     private final FrameRecorderWrapper recorder;
     private final FrameGrabberWrapper grabber;
-    private final OpenCVFrameConverter.ToMat converter;
+    private final FrameConverterWrapper converter;
     private Boolean isStarted = false;
 
     public VideoRecorder(FrameGrabber grabber, FrameRecorder recorder, OpenCVFrameConverter.ToMat converter) {

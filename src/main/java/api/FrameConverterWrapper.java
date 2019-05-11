@@ -12,6 +12,10 @@ public class FrameConverterWrapper extends OpenCVFrameConverter.ToMat {
         this.converter = converter;
     }
 
+    public FrameConverterWrapper() {
+        this(new OpenCVFrameConverter.ToMat());
+    }
+
     @Override
     public opencv_core.IplImage convertToIplImage(Frame frame) {
         return converter.convertToIplImage(frame);

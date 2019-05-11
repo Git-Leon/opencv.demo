@@ -1,9 +1,12 @@
 package api;
 
 import org.bytedeco.javacpp.indexer.DoubleIndexer;
-import org.bytedeco.javacv.*;
+import org.bytedeco.javacpp.opencv_calib3d;
+import org.bytedeco.javacv.CanvasFrame;
+import org.bytedeco.javacv.Frame;
+import org.bytedeco.javacv.FrameGrabber;
+import org.bytedeco.javacv.FrameRecorder;
 
-import static org.bytedeco.javacpp.opencv_calib3d.Rodrigues;
 import static org.bytedeco.javacpp.opencv_core.*;
 import static org.bytedeco.javacpp.opencv_imgproc.*;
 import static org.bytedeco.javacpp.opencv_objdetect.CascadeClassifier;
@@ -14,41 +17,27 @@ public class LegacyMainApplication {
         FrontFaceClassifier frontFaceClassifier = new FrontFaceClassifier();
         CascadeClassifier classifier = frontFaceClassifier.getClassifier();
         FrameGrabber grabber = FrameGrabber.createDefault(0);
-        OpenCVFrameConverter.ToMat converter = new OpenCVFrameConverter.ToMat();
         CanvasFrame frame = new CanvasFrame("Some Title", CanvasFrame.getDefaultGamma() / grabber.getGamma());
-
+        FrameConverterWrapper converter = new FrameConverterWrapper();
 
         grabber.start();
+
         Mat grabbedImage = converter.convert(grabber.grab());
+        Mat rotatedImage = grabbedImage.clone();
         int height = grabbedImage.rows();
         int width = grabbedImage.cols();
 
-        // Objects allocated with `new`, clone(), or a create*() factory method are automatically released
-        // by the garbage collector, but may still be explicitly released by calling deallocate().
-        // You shall NOT call cvReleaseImage(), cvReleaseMemStorage(), etc. on objects allocated this way.
-        Mat grayImage = new Mat(height, width, CV_8UC1);
-        Mat rotatedImage = grabbedImage.clone();
-
-        // The OpenCVFrameRecorder class simply uses the VideoWriter of opencv_videoio,
-        // but FFmpegFrameRecorder also exists as a more versatile alternative.
-        FrameRecorder recorder = FrameRecorder.createDefault("output.avi", width, height);
+        FrameRecorder recorder = new FrameRecorderWrapper(grabbedImage);
         recorder.start();
 
-        // CanvasFrame is a JFrame containing a Canvas component, which is hardware accelerated.
-        // It can also switch into full-screen mode when called with a screenNumber.
-        // We should also specify the relative monitor/camera response for proper gamma correction.
-
         // Let's create some random 3D rotation...
-        Mat randomR = new Mat(3, 3, CV_64FC1),
-                randomAxis = new Mat(3, 1, CV_64FC1);
+        Mat randomR = new Mat(3, 3, CV_64FC1);
+        Mat randomAxis = new Mat(3, 1, CV_64FC1);
+
         // We can easily and efficiently access the elements of matrices and images
         // through an Indexer object with the set of get() and put() methods.
-        DoubleIndexer Ridx = randomR.createIndexer(),
-                axisIdx = randomAxis.createIndexer();
-        axisIdx.put(0, (Math.random() - 0.5) / 4,
-                (Math.random() - 0.5) / 4,
-                (Math.random() - 0.5) / 4);
-        Rodrigues(randomAxis, randomR);
+        DoubleIndexer Ridx = randomR.createIndexer();
+        opencv_calib3d.Rodrigues(randomAxis, randomR);
         double f = (width + height) / 2.0;
         Ridx.put(0, 2, Ridx.get(0, 2) * f);
         Ridx.put(1, 2, Ridx.get(1, 2) * f);
@@ -58,12 +47,13 @@ public class LegacyMainApplication {
 
         // We can allocate native arrays using constructors taking an integer as argument.
         Point hatPoints = new Point(3);
-
+        Mat grayImage = new Mat(height, width, CV_8UC1);
         while (frame.isVisible() && (grabbedImage = converter.convert(grabber.grab())) != null) {
             // Let's try to detect some faces! but we need a grayscale image...
             cvtColor(grabbedImage, grayImage, CV_BGR2GRAY);
             RectVector faces = new RectVector();
             classifier.detectMultiScale(grayImage, faces);
+
             long total = faces.size();
             for (long i = 0; i < total; i++) {
                 Rect r = faces.get(i);
