@@ -107,7 +107,7 @@ public class MatImage {
      * // You shall NOT call cvReleaseImage(), cvReleaseMemStorage(), etc. on objects allocated this way.
      */
     public MatImage clone() {
-        return new MatImage(frame, frameGrabber, converter, image);
+        return new MatImage(frame, frameGrabber, converter, image.clone());
     }
 
 
@@ -148,13 +148,12 @@ public class MatImage {
         opencv_imgproc.warpPerspective(image, rotatedImage, ranomdR, rotatedImage.size());
     }
 
-    public void rectangle(long i) {
+    public void rectangle(long i, opencv_core.RectVector faces) {
         // We can allocate native arrays using constructors taking an integer as argument.
-        this.rectangle(i, new opencv_core.Point(3));
+        this.rectangle(i, new opencv_core.Point(3), faces);
     }
 
-    public void rectangle(long i, opencv_core.Point hatPoints) {
-        opencv_core.RectVector faces = new opencv_core.RectVector();
+    public void rectangle(long i, opencv_core.Point hatPoints, opencv_core.RectVector faces) {
         opencv_core.Rect r = faces.get(i);
         int x = r.x(), y = r.y(), w = r.width(), h = r.height();
         opencv_imgproc.rectangle(
@@ -167,6 +166,7 @@ public class MatImage {
         hatPoints.position(0).x(x - w / 10).y(y - h / 10);
         hatPoints.position(1).x(x + w * 11 / 10).y(y - h / 10);
         hatPoints.position(2).x(x + w / 2).y(y - h / 2);
+        opencv_imgproc.fillConvexPoly(image, hatPoints.position(0), 3, opencv_core.Scalar.GREEN, CV_AA, 0);
     }
 
 }

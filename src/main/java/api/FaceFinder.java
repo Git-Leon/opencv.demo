@@ -29,7 +29,7 @@ public class FaceFinder {
         this.classifier.detectMultiScale(grayImage, faces);
         long total = faces.size();
         for (long i = 0; i < total; i++) {
-            image.rectangle(i);
+            image.rectangle(i, faces);
             opencv_imgproc.fillConvexPoly(grabbedImage, hatPoints.position(0), 3, opencv_core.Scalar.GREEN, CV_AA, 0);
         }
 

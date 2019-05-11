@@ -13,10 +13,11 @@ public class Smoother {
         FrameGrabber grabber = FrameGrabberFactory.createDefault(0);
         CanvasFrame frame = new CanvasFrame("Some Title", CanvasFrame.getDefaultGamma() / grabber.getGamma());
         FrontFaceClassifier frontFaceClassifier = new FrontFaceClassifier();
-        frontFaceClassifier.detectMultiScale();
-        MatImage grabbedImage = new MatImage(frame, grabber);
-        int height = grabbedImage.getHeight();
-        int width = grabbedImage.getWidth();
+        RectVector faces = new RectVector();
+        MatImage matImage = new MatImage(frame, grabber);
+        frontFaceClassifier.detectMultiScale(matImage, faces);
+        int height = matImage.getHeight();
+        int width = matImage.getWidth();
         grabber.start();
 
         // The OpenCVFrameRecorder class simply uses the VideoWriter of opencv_videoio,
@@ -46,12 +47,12 @@ public class Smoother {
         System.out.println(Ridx);
 
 
-        FaceFinder faceFinder = new FaceFinder(grabbedImage);
+        FaceFinder faceFinder = new FaceFinder(matImage);
         FrameRecorder recorder = FrameRecorder.createDefault("output.avi", width, height);
         recorder.start();
-        while (frame.isVisible() && (grabbedImage = grabbedImage.convert()) != null) {
+        while (frame.isVisible() && (matImage = matImage.convert()) != null) {
             faceFinder.detect();
-            Frame rotatedFrame = grabbedImage.grabAndConvert();
+            Frame rotatedFrame = matImage.grabAndConvert();
             recorder.record(rotatedFrame);
         }
         frame.dispose();

@@ -36,8 +36,11 @@ public class FrontFaceClassifier {
     }
 
 
-
     public void detectMultiScale(MatImage image, opencv_core.RectVector faces) {
         this.classifier.detectMultiScale(image.grayScale().getMatObject(), faces);
+    }
+
+    public opencv_objdetect.CascadeClassifier getClassifier() {
+        return this.classifier;
     }
 }
