@@ -15,7 +15,7 @@ public class FaceDetector {
     public FaceDetector(String title) {
         this.grabber = new FrameGrabberWrapper();
         this.converter = new FrameConverterWrapper();
-        this.frame = new CanvasFrameWrapper("Title", grabber);
+        this.frame = new CanvasFrameWrapper(title, grabber);
     }
 
     public FaceDetector(CanvasFrame frame) {
