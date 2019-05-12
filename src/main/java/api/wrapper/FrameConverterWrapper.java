@@ -1,6 +1,7 @@
 package api.wrapper;
 
 
+import api.LoggerSingleton;
 import org.bytedeco.javacpp.opencv_core;
 import org.bytedeco.javacv.Frame;
 import org.bytedeco.javacv.OpenCVFrameConverter;
@@ -10,6 +11,7 @@ public class FrameConverterWrapper extends OpenCVFrameConverter.ToMat {
 
     public FrameConverterWrapper(OpenCVFrameConverter.ToMat converter) {
         this.converter = converter;
+        LoggerSingleton.GLOBAL.info("FrameConverter created");
     }
 
     public FrameConverterWrapper() {

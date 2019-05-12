@@ -1,5 +1,6 @@
 package api.wrapper;
 
+import api.LoggerSingleton;
 import org.bytedeco.javacv.CanvasFrame;
 import org.bytedeco.javacv.Frame;
 
@@ -11,10 +12,9 @@ public class CanvasFrameWrapper {
     }
 
     public CanvasFrameWrapper(String title, FrameGrabberWrapper grabber) {
-        System.out.println("FrameGrabber started");
         grabber.start();
         this.frame = new CanvasFrame(title, CanvasFrame.getDefaultGamma() / grabber.getGamma());
-        System.out.println("CanvasFrame created");
+        LoggerSingleton.GLOBAL.info("CanvasFrame created");
     }
 
     public boolean isVisible() {

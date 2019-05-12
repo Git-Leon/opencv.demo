@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE log SYSTEM "logger.dtd">
+<log>
+<record>
+  <date>2019-05-12T01:20:09</date>
+  <millis>1557638409645</millis>
+  <sequence>0</sequence>
+  <logger>api.LoggerSingleton.GLOBAL</logger>
+  <level>INFO</level>
+  <class>api.LoggerSingleton</class>
+  <method>log</method>
+  <thread>1</thread>
+  <message>FrameGrabber being created...</message>
+</record>
+<record>
+  <date>2019-05-12T01:20:11</date>
+  <millis>1557638411097</millis>
+  <sequence>1</sequence>
+  <logger>api.LoggerSingleton.GLOBAL</logger>
+  <level>INFO</level>
+  <class>api.LoggerSingleton</class>
+  <method>log</method>
+  <thread>1</thread>
+  <message>FrameGrabber created</message>
+</record>
+<record>
+  <date>2019-05-12T01:20:11</date>
+  <millis>1557638411098</millis>
+  <sequence>2</sequence>
+  <logger>api.LoggerSingleton.GLOBAL</logger>
+  <level>INFO</level>
+  <class>api.LoggerSingleton</class>
+  <method>log</method>
+  <thread>1</thread>
+  <message>FrameConverter created</message>
+</record>
+<record>
+  <date>2019-05-12T01:20:11</date>
+  <millis>1557638411511</millis>
+  <sequence>3</sequence>
+  <logger>api.LoggerSingleton.GLOBAL</logger>
+  <level>INFO</level>
+  <class>api.LoggerSingleton</class>
+  <method>log</method>
+  <thread>1</thread>
+  <message>FrameGrabber started</message>
+</record>
+<record>
+  <date>2019-05-12T01:20:11</date>
+  <millis>1557638411905</millis>
+  <sequence>4</sequence>
+  <logger>api.LoggerSingleton.GLOBAL</logger>
+  <level>INFO</level>
+  <class>api.LoggerSingleton</class>
+  <method>log</method>
+  <thread>1</thread>
+  <message>CanvasFrame created</message>
+</record>
+<record>
+  <date>2019-05-12T01:20:11</date>
+  <millis>1557638411965</millis>
+  <sequence>5</sequence>
+  <logger>api.LoggerSingleton.GLOBAL</logger>
+  <level>INFO</level>
+  <class>api.LoggerSingleton</class>
+  <method>log</method>
+  <thread>1</thread>
+  <message>FrameRecorder being created...</message>
+</record>
+<record>
+  <date>2019-05-12T01:20:12</date>
+  <millis>1557638412654</millis>
+  <sequence>6</sequence>
+  <logger>api.LoggerSingleton.GLOBAL</logger>
+  <level>INFO</level>
+  <class>api.LoggerSingleton</class>
+  <method>log</method>
+  <thread>1</thread>
+  <message>FrameRecorder created</message>
+</record>
+<record>
+  <date>2019-05-12T01:20:12</date>
+  <millis>1557638412985</millis>
+  <sequence>7</sequence>
+  <logger>api.LoggerSingleton.GLOBAL</logger>
+  <level>INFO</level>
+  <class>api.LoggerSingleton</class>
+  <method>log</method>
+  <thread>1</thread>
+  <message>ridx = 
+[ 1.0, 0.0, 0.0
+  0.0, 1.0, 0.0
+  0.0, 0.0, 1.0 ]</message>
+</record>
+<record>
+  <date>2019-05-12T01:20:12</date>
+  <millis>1557638412986</millis>
+  <sequence>8</sequence>
+  <logger>api.LoggerSingleton.GLOBAL</logger>
+  <level>INFO</level>
+  <class>api.LoggerSingleton</class>
+  <method>log</method>
+  <thread>1</thread>
+  <message>Training classifier is preloading</message>
+</record>
+<record>
+  <date>2019-05-12T01:20:13</date>
+  <millis>1557638413736</millis>
+  <sequence>9</sequence>
+  <logger>api.LoggerSingleton.GLOBAL</logger>
+  <level>INFO</level>
+  <class>api.LoggerSingleton</class>
+  <method>log</method>
+  <thread>1</thread>
+  <message>Training classifier has been preloaded</message>
+</record>
+<record>
+  <date>2019-05-12T01:20:13</date>
+  <millis>1557638413736</millis>
+  <sequence>10</sequence>
+  <logger>api.LoggerSingleton.GLOBAL</logger>
+  <level>INFO</level>
+  <class>api.LoggerSingleton</class>
+  <method>log</method>
+  <thread>1</thread>
+  <message>opencv_objectdetect.class is preloading</message>
+</record>
+<record>
+  <date>2019-05-12T01:20:13</date>
+  <millis>1557638413960</millis>
+  <sequence>11</sequence>
+  <logger>api.LoggerSingleton.GLOBAL</logger>
+  <level>INFO</level>
+  <class>api.LoggerSingleton</class>
+  <method>log</method>
+  <thread>1</thread>
+  <message>opencv_objectdetect.class has been preloaded</message>
+</record>
+</log>

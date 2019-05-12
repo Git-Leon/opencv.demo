@@ -1,0 +1,27 @@
+May 12, 2019 1:32:25 AM com.github.git_leon.logging.SimpleLogger log
+INFO: FrameGrabber being created...
+May 12, 2019 1:32:27 AM com.github.git_leon.logging.SimpleLogger log
+INFO: FrameGrabber created
+May 12, 2019 1:32:27 AM com.github.git_leon.logging.SimpleLogger log
+INFO: FrameConverter created
+May 12, 2019 1:32:28 AM com.github.git_leon.logging.SimpleLogger log
+INFO: FrameGrabber started
+May 12, 2019 1:32:29 AM com.github.git_leon.logging.SimpleLogger log
+INFO: CanvasFrame created
+May 12, 2019 1:32:29 AM com.github.git_leon.logging.SimpleLogger log
+INFO: FrameRecorder being created...
+May 12, 2019 1:32:29 AM com.github.git_leon.logging.SimpleLogger log
+INFO: FrameRecorder created
+May 12, 2019 1:32:30 AM com.github.git_leon.logging.SimpleLogger log
+INFO: ridx = 
+[ 1.0, 0.0, 0.0
+  0.0, 1.0, 0.0
+  0.0, 0.0, 1.0 ]
+May 12, 2019 1:32:30 AM com.github.git_leon.logging.SimpleLogger log
+INFO: Training classifier is preloading
+May 12, 2019 1:32:30 AM com.github.git_leon.logging.SimpleLogger log
+INFO: Training classifier has been preloaded
+May 12, 2019 1:32:30 AM com.github.git_leon.logging.SimpleLogger log
+INFO: opencv_objectdetect.class is preloading
+May 12, 2019 1:32:30 AM com.github.git_leon.logging.SimpleLogger log
+INFO: opencv_objectdetect.class has been preloaded

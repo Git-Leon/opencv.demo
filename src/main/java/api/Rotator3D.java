@@ -42,7 +42,7 @@ public class Rotator3D {
         ridx.put(1, 2, ridx.get(1, 2) * f);
         ridx.put(2, 0, ridx.get(2, 0) / f);
         ridx.put(2, 1, ridx.get(2, 1) / f);
-        System.out.println("ridx = " + ridx);
+        LoggerSingleton.GLOBAL.info("ridx = " + ridx);
     }
 
     public opencv_core.Mat getRandomR() {

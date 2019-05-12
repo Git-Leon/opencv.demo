@@ -1,5 +1,6 @@
 package api.wrapper;
 
+import api.LoggerSingleton;
 import org.bytedeco.javacpp.opencv_core;
 import org.bytedeco.javacv.Frame;
 import org.bytedeco.javacv.FrameRecorder;
@@ -53,8 +54,9 @@ public class FrameRecorderWrapper extends FrameRecorder {
 
     private static FrameRecorder createDefault(opencv_core.Mat grabbedImage) {
         try {
+            LoggerSingleton.GLOBAL.info("FrameRecorder being created...");
             FrameRecorder frameRecorder = FrameRecorder.createDefault("output.avi", grabbedImage.rows(), grabbedImage.cols());
-            System.out.println("FrameRecorder created");
+            LoggerSingleton.GLOBAL.info("FrameRecorder created");
             return frameRecorder;
         } catch (Exception e) {
             throw new Error(e);

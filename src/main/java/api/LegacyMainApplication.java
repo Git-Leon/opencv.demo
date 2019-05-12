@@ -30,18 +30,14 @@ public class LegacyMainApplication {
 
         // We can "cast" Pointer objects by instantiating a new object of the desired class.
         CascadeClassifier classifier = new CascadeClassifier(classifierName);
-        if (classifier == null) {
-            System.err.println("Error loading classifier file \"" + classifierName + "\".");
-            System.exit(1);
-        }
 
         // The available FrameGrabber classes include OpenCVFrameGrabber (opencv_videoio),
         // DC1394FrameGrabber, FlyCaptureFrameGrabber, OpenKinectFrameGrabber, OpenKinect2FrameGrabber,
         // RealSenseFrameGrabber, PS3EyeFrameGrabber, VideoInputFrameGrabber, and FFmpegFrameGrabber.
         FrameGrabber grabber = FrameGrabber.createDefault(0);
-        System.out.println("FrameGrabber created");
+        LoggerSingleton.GLOBAL.info("FrameGrabber created");
         grabber.start();
-        System.out.println("FrameGrabber started");
+        LoggerSingleton.GLOBAL.info("FrameGrabber started");
 
         // CanvasFrame, FrameGrabber, and FrameRecorder use Frame objects to communicate image data.
         // We need a FrameConverter to interface with other APIs (Android, Java 2D, JavaFX, Tesseract, OpenCV, etc).
@@ -68,15 +64,15 @@ public class LegacyMainApplication {
         // The OpenCVFrameRecorder class simply uses the VideoWriter of opencv_videoio,
         // but FFmpegFrameRecorder also exists as a more versatile alternative.
         FrameRecorder recorder = FrameRecorder.createDefault("output.avi", width, height);
-        System.out.println("FrameRecorder created");
+        LoggerSingleton.GLOBAL.info("FrameRecorder created");
         recorder.start();
-        System.out.println("FrameRecorder started");
+        LoggerSingleton.GLOBAL.info("FrameRecorder started");
 
         // CanvasFrame is a JFrame containing a Canvas component, which is hardware accelerated.
         // It can also switch into full-screen mode when called with a screenNumber.
         // We should also specify the relative monitor/camera response for proper gamma correction.
         CanvasFrame frame = new CanvasFrame("Some Title", CanvasFrame.getDefaultGamma() / grabber.getGamma());
-        System.out.println("CanvasFrame created");
+        LoggerSingleton.GLOBAL.info("CanvasFrame created");
 
         // Let's create some random 3D rotation...
         Mat randomR = new Mat(3, 3, CV_64FC1),
@@ -94,7 +90,7 @@ public class LegacyMainApplication {
         Ridx.put(1, 2, Ridx.get(1, 2) * f);
         Ridx.put(2, 0, Ridx.get(2, 0) / f);
         Ridx.put(2, 1, Ridx.get(2, 1) / f);
-        System.out.println(Ridx);
+        LoggerSingleton.GLOBAL.info(Ridx.toString());
 
         // We can allocate native arrays using constructors taking an integer as argument.
         Point hatPoints = new Point(3);

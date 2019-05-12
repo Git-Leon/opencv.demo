@@ -17,19 +17,27 @@ public class FrontFaceClassifier {
 
     public FrontFaceClassifier() {
         String classifierName = getClassifierName();
-        // Preload the opencv_objdetect module to work around a known bug.
-        Loader.load(opencv_objdetect.class);
+        proloadOpenCvObjectModel();
 
         // We can "cast" Pointer objects by instantiating a new object of the desired class.
         this.classifier = new opencv_objdetect.CascadeClassifier(classifierName);
     }
 
+    private void proloadOpenCvObjectModel() {
+        // Preload the opencv_objdetect module to work around a known bug.
+        LoggerSingleton.GLOBAL.info("opencv_objectdetect.class is preloading");
+        Loader.load(opencv_objdetect.class);
+        LoggerSingleton.GLOBAL.info("opencv_objectdetect.class has been preloaded");
+    }
+
     private String getClassifierName() {
         try {
+            LoggerSingleton.GLOBAL.info("Training classifier is preloading");
             String address = "https://raw.github.com/opencv/opencv/master/data/haarcascades/haarcascade_frontalface_alt.xml";
-            URL url = new URL(address);
-            File file = Loader.cacheResource(url);
-            return file.getAbsolutePath();
+            URL urlOfTrainedClassifier = new URL(address);
+            File frontFaceTrainedClassifier = Loader.cacheResource(urlOfTrainedClassifier);
+            LoggerSingleton.GLOBAL.info("Training classifier has been preloaded");
+            return frontFaceTrainedClassifier.getAbsolutePath();
         } catch (IOException e) {
             throw new Error(e);
         }
