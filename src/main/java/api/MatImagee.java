@@ -11,7 +11,8 @@ import static org.bytedeco.javacpp.opencv_core.CV_64FC1;
 import static org.bytedeco.javacpp.opencv_imgproc.CV_AA;
 import static org.bytedeco.javacpp.opencv_imgproc.CV_BGR2GRAY;
 
-public class MatImage {
+@Deprecated
+public class MatImagee {
     private final opencv_core.Mat image;
     private final FrameGrabber frameGrabber;
     private final OpenCVFrameConverter.ToMat converter;
@@ -20,7 +21,7 @@ public class MatImage {
     /**
      * @param frameGrabber FrameGrabber, FrameRecorder, and CanvasFrame use Frame objects to communicate image data.
      */
-    public MatImage(CanvasFrame frame, FrameGrabber frameGrabber) {
+    public MatImagee(CanvasFrame frame, FrameGrabber frameGrabber) {
         this(frame, frameGrabber, new OpenCVFrameConverter.ToMat());
     }
 
@@ -28,7 +29,7 @@ public class MatImage {
      * @param frameGrabber uses Frame objects to communicate image data.
      * @param converter    we need a FrameConverter to interface with other APIs (Android, Java 2D, JavaFX, Tesseract, OpenCV, etc).
      */
-    public MatImage(CanvasFrame frame, FrameGrabber frameGrabber, OpenCVFrameConverter.ToMat converter) {
+    public MatImagee(CanvasFrame frame, FrameGrabber frameGrabber, OpenCVFrameConverter.ToMat converter) {
         this.frame = frame;
         this.frameGrabber = frameGrabber;
         this.converter = converter;
@@ -39,7 +40,7 @@ public class MatImage {
      * @param frameGrabber uses Frame objects to communicate image data.
      * @param converter    we need a FrameConverter to interface with other APIs (Android, Java 2D, JavaFX, Tesseract, OpenCV, etc).
      */
-    public MatImage(CanvasFrame frame, FrameGrabber frameGrabber, OpenCVFrameConverter.ToMat converter, opencv_core.Mat image) {
+    public MatImagee(CanvasFrame frame, FrameGrabber frameGrabber, OpenCVFrameConverter.ToMat converter, opencv_core.Mat image) {
         this.frame = frame;
         this.frameGrabber = frameGrabber;
         this.converter = converter;
@@ -80,21 +81,21 @@ public class MatImage {
         return getMatObject().cols();
     }
 
-    public MatImage grayScale() {
+    public MatImagee grayScale() {
         opencv_core.Mat grayImage = new opencv_core.Mat(getHeight(), getWidth(), opencv_core.CV_8UC1);
-        return new MatImage(frame, frameGrabber, converter, grayImage);
+        return new MatImagee(frame, frameGrabber, converter, grayImage);
     }
 
-    public MatImage convert() {
+    public MatImagee convert() {
         try {
-            return new MatImage(frame, frameGrabber, converter, converter.convert(frameGrabber.grab()));
+            return new MatImagee(frame, frameGrabber, converter, converter.convert(frameGrabber.grab()));
         } catch (FrameGrabber.Exception e) {
             throw new Error(e);
         }
     }
 
     public Frame grabAndConvert() {
-        MatImage convertedImage = this.convert();
+        MatImagee convertedImage = this.convert();
         Frame rotatedFrame = convertedImage.converter.convert(convertedImage.getMatObject());
         frame.showImage(rotatedFrame);
         return rotatedFrame;
@@ -106,8 +107,8 @@ public class MatImage {
      * // by the garbage collector, but may still be explicitly released by calling deallocate().
      * // You shall NOT call cvReleaseImage(), cvReleaseMemStorage(), etc. on objects allocated this way.
      */
-    public MatImage clone() {
-        return new MatImage(frame, frameGrabber, converter, image.clone());
+    public MatImagee clone() {
+        return new MatImagee(frame, frameGrabber, converter, image.clone());
     }
 
 
@@ -131,7 +132,7 @@ public class MatImage {
      * @param targetScale
      * @param colorConversionCode
      */
-    public void convertToColorSpace(MatImage targetScale, int colorConversionCode) {
+    public void convertToColorSpace(MatImagee targetScale, int colorConversionCode) {
         this.convertToColorSpace(targetScale.getMatObject(), colorConversionCode);
     }
 

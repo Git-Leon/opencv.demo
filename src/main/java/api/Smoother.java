@@ -1,12 +1,10 @@
 package api;
 
 import org.bytedeco.javacpp.indexer.DoubleIndexer;
-import org.bytedeco.javacpp.opencv_imgproc;
 import org.bytedeco.javacv.*;
 
 import static org.bytedeco.javacpp.opencv_calib3d.Rodrigues;
 import static org.bytedeco.javacpp.opencv_core.*;
-import static org.bytedeco.javacpp.opencv_imgproc.*;
 
 public class Smoother {
     public void start() throws Exception {
@@ -14,7 +12,7 @@ public class Smoother {
         CanvasFrame frame = new CanvasFrame("Some Title", CanvasFrame.getDefaultGamma() / grabber.getGamma());
         FrontFaceClassifier frontFaceClassifier = new FrontFaceClassifier();
         RectVector faces = new RectVector();
-        MatImage matImage = new MatImage(frame, grabber);
+        MatImagee matImage = new MatImagee(frame, grabber);
         frontFaceClassifier.detectMultiScale(matImage, faces);
         int height = matImage.getHeight();
         int width = matImage.getWidth();

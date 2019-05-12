@@ -8,6 +8,10 @@ import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 
+import static org.bytedeco.javacpp.opencv_imgproc.CV_AA;
+import static org.bytedeco.javacpp.opencv_imgproc.fillConvexPoly;
+import static org.bytedeco.javacpp.opencv_imgproc.rectangle;
+
 public class FrontFaceClassifier {
     private opencv_objdetect.CascadeClassifier classifier;
 
@@ -31,13 +35,27 @@ public class FrontFaceClassifier {
         }
     }
 
-    public void detectMultiScale(opencv_core.Mat grayImage, opencv_core.RectVector faces) {
-        this.classifier.detectMultiScale(grayImage, faces);
+    public void detectMultiScale(opencv_core.Mat grayImage, opencv_core.RectVector rectVector) {
+        this.classifier.detectMultiScale(grayImage, rectVector);
     }
 
+    public void detectFaces(
+            opencv_core.Mat grabbedImage,
+            opencv_core.RectVector faces,
+            opencv_core.Point hatPoints) {
+        long total = faces.size();
+        for (long i = 0; i < total; i++) {
+            opencv_core.Rect r = faces.get(i);
+            int x = r.x(), y = r.y(), w = r.width(), h = r.height();
+            rectangle(grabbedImage, new opencv_core.Point(x, y), new opencv_core.Point(x + w, y + h), opencv_core.Scalar.RED, 1, CV_AA, 0);
 
-    public void detectMultiScale(MatImage image, opencv_core.RectVector faces) {
-        this.classifier.detectMultiScale(image.grayScale().getMatObject(), faces);
+            // To access or pass as argument the elements of a native array, call position() before.
+            hatPoints.position(0).x(x - w / 10).y(y - h / 10);
+            hatPoints.position(1).x(x + w * 11 / 10).y(y - h / 10);
+            hatPoints.position(2).x(x + w / 2).y(y - h / 2);
+            fillConvexPoly(grabbedImage, hatPoints.position(0), 3, opencv_core.Scalar.GREEN, CV_AA, 0);
+        }
+
     }
 
     public opencv_objdetect.CascadeClassifier getClassifier() {

@@ -8,15 +8,15 @@ import static org.bytedeco.javacpp.opencv_imgproc.arcLength;
 
 public class FaceFinder {
     private FrontFaceClassifier classifier;
-    private MatImage image;
+    private MatImagee image;
     private opencv_core.Point hatPoints;
 
 
-    public FaceFinder(MatImage image) {
+    public FaceFinder(MatImagee image) {
         this(new FrontFaceClassifier(), image, new opencv_core.Point(3));
     }
 
-    public FaceFinder(FrontFaceClassifier classifier, MatImage image, opencv_core.Point hatPoints) {
+    public FaceFinder(FrontFaceClassifier classifier, MatImagee image, opencv_core.Point hatPoints) {
         this.classifier = classifier;
         this.image = image;
         this.hatPoints = hatPoints;
