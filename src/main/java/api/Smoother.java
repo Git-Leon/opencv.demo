@@ -13,7 +13,7 @@ public class Smoother {
         FrontFaceClassifier frontFaceClassifier = new FrontFaceClassifier();
         RectVector faces = new RectVector();
         MatImagee matImage = new MatImagee(frame, grabber);
-        frontFaceClassifier.detectMultiScale(matImage, faces);
+        frontFaceClassifier.detectMultiScale(matImage.getMatObject(), faces);
         int height = matImage.getHeight();
         int width = matImage.getWidth();
         grabber.start();
