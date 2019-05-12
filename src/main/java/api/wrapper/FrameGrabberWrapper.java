@@ -67,7 +67,9 @@ public class FrameGrabberWrapper extends FrameGrabber {
 
     private static FrameGrabber createDefault() {
         try {
-            return FrameGrabber.createDefault(0);
+            FrameGrabber frameGrabber = FrameGrabber.createDefault(0);;
+            System.out.println("FrameGrabber created");
+            return frameGrabber;
         } catch (Exception e) {
             throw new Error(e);
         }

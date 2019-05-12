@@ -1,0 +1,14 @@
+FrameGrabber created
+FrameGrabber started
+FrameRecorder created
+[huffyuv @ 0x7fcc3094d200] using huffyuv 2.2.0 or newer interlacing flag
+FrameRecorder started
+Output #0, avi, to 'output.avi':
+  Metadata:
+    ISFT            : Lavf58.20.100
+    Stream #0:0: Video: huffyuv (HFYU / 0x55594648), bgra, 1280x720, q=2-31, 400 kb/s, 30 fps, 30 tbn, 30 tbc
+CanvasFrame created
+
+[ 0.994081, 0.085520394, 67.00171
+  -0.08818397, 0.99538463, 37.854523
+  -6.345514E-5, -4.3538937E-5, 0.9970345 ]

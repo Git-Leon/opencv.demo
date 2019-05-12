@@ -11,8 +11,10 @@ public class CanvasFrameWrapper {
     }
 
     public CanvasFrameWrapper(String title, FrameGrabberWrapper grabber) {
+        System.out.println("FrameGrabber started");
         grabber.start();
         this.frame = new CanvasFrame(title, CanvasFrame.getDefaultGamma() / grabber.getGamma());
+        System.out.println("CanvasFrame created");
     }
 
     public boolean isVisible() {

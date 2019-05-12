@@ -53,7 +53,9 @@ public class FrameRecorderWrapper extends FrameRecorder {
 
     private static FrameRecorder createDefault(opencv_core.Mat grabbedImage) {
         try {
-            return FrameRecorder.createDefault("output.avi", grabbedImage.rows(), grabbedImage.cols());
+            FrameRecorder frameRecorder = FrameRecorder.createDefault("output.avi", grabbedImage.rows(), grabbedImage.cols());
+            System.out.println("FrameRecorder created");
+            return frameRecorder;
         } catch (Exception e) {
             throw new Error(e);
         }
