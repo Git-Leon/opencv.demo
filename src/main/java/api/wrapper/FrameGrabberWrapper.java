@@ -1,4 +1,4 @@
-package api;
+package api.wrapper;
 
 import org.bytedeco.javacv.Frame;
 import org.bytedeco.javacv.FrameGrabber;

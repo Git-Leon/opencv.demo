@@ -1,5 +1,7 @@
-package api;
+package api.wrapper;
 
+import api.FrontFaceClassifier;
+import api.Rotator3D;
 import org.bytedeco.javacpp.opencv_core;
 import org.bytedeco.javacpp.opencv_cudawarping;
 import org.bytedeco.javacpp.opencv_imgproc;
@@ -54,4 +56,14 @@ public class MatWrapper extends opencv_core.Mat {
         // Let's find some contours! but first some thresholding...
         opencv_imgproc.threshold(image, image, i, i1, cvThreshBinary);
     }
+
+    public opencv_core.Mat getImage() {
+        return image;
+    }
+
+    @Override
+    public MatWrapper clone() {
+        return new MatWrapper(image.clone());
+    }
+
 }

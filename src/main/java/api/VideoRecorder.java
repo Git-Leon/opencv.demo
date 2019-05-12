@@ -1,5 +1,8 @@
 package api;
 
+import api.wrapper.FrameConverterWrapper;
+import api.wrapper.FrameGrabberWrapper;
+import api.wrapper.FrameRecorderWrapper;
 import org.bytedeco.javacv.FrameGrabber;
 import org.bytedeco.javacv.FrameRecorder;
 import org.bytedeco.javacv.OpenCVFrameConverter;
