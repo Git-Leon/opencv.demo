@@ -22,17 +22,16 @@ public class Rotator3D {
         // We can easily and efficiently access the elements of matrices and images
         // through an Indexer object with the set of get() and put() methods.
         LoggerSingleton.GLOBAL.info("Creating indexers");
+        double f = (mat.cols() + mat.rows()) / 2.0;
         DoubleIndexer ridx = randomR.createIndexer();
         DoubleIndexer axisIdx = randomAxis.createIndexer();
         axisIdx.put(0, 0.0);
-        LoggerSingleton.GLOBAL.info("Calibrating camera");
-        opencv_calib3d.Rodrigues(randomAxis, randomR);
-        double f = (mat.cols() + mat.rows()) / 2.0;
         ridx.put(0, 2, ridx.get(0, 2) * f);
         ridx.put(1, 2, ridx.get(1, 2) * f);
         ridx.put(2, 0, ridx.get(2, 0) / f);
         ridx.put(2, 1, ridx.get(2, 1) / f);
-        LoggerSingleton.GLOBAL.info("ridx = " + ridx);
+        opencv_calib3d.Rodrigues(randomAxis, randomR);
+        LoggerSingleton.GLOBAL.info("Camera calibrated");
     }
 
     public opencv_core.Mat getRandomR() {
