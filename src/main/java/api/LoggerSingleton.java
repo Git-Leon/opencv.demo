@@ -3,7 +3,7 @@ package api;
 import com.github.git_leon.logging.SimpleLogger;
 
 public enum LoggerSingleton {
-    GLOBAL;
+    GLOBAL, LEGACY;
     private SimpleLogger logger;
 
     LoggerSingleton() {

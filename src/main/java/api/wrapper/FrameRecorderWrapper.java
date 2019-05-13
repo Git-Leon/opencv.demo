@@ -1,6 +1,7 @@
 package api.wrapper;
 
 import api.LoggerSingleton;
+import com.github.git_leon.collectionutils.maps.IntrospectiveMap;
 import org.bytedeco.javacpp.opencv_core;
 import org.bytedeco.javacv.Frame;
 import org.bytedeco.javacv.FrameRecorder;
@@ -19,6 +20,7 @@ public class FrameRecorderWrapper extends FrameRecorder {
     @Override
     public void start() {
         try {
+            LoggerSingleton.GLOBAL.info("FrameRecorder started");
             recorder.start();
         } catch (FrameRecorder.Exception e) {
             throw new Error(e);
@@ -54,10 +56,9 @@ public class FrameRecorderWrapper extends FrameRecorder {
 
     private static FrameRecorder createDefault(opencv_core.Mat grabbedImage) {
         try {
-            LoggerSingleton.GLOBAL.info("FrameRecorder being created...");
-            FrameRecorder frameRecorder = FrameRecorder.createDefault("output.avi", grabbedImage.rows(), grabbedImage.cols());
+            FrameRecorder recorder = FrameRecorder.createDefault("output.avi", grabbedImage.rows(), grabbedImage.cols());
             LoggerSingleton.GLOBAL.info("FrameRecorder created");
-            return frameRecorder;
+            return recorder;
         } catch (Exception e) {
             throw new Error(e);
         }

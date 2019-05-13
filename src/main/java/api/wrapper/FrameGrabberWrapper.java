@@ -6,6 +6,7 @@ import org.bytedeco.javacv.FrameGrabber;
 
 public class FrameGrabberWrapper extends FrameGrabber {
     private final FrameGrabber grabber;
+    private Boolean started = false;
 
     public FrameGrabberWrapper(FrameGrabber grabber) {
         this.grabber = grabber;
@@ -19,8 +20,11 @@ public class FrameGrabberWrapper extends FrameGrabber {
     @Override
     public void start() {
         try {
-            grabber.start();
-            LoggerSingleton.GLOBAL.info("FrameGrabber started");
+            if (!started) {
+                grabber.start();
+                LoggerSingleton.GLOBAL.info("FrameGrabber started");
+                started = true;
+            }
         } catch (Exception e) {
             throw new Error(e);
         }
@@ -30,6 +34,7 @@ public class FrameGrabberWrapper extends FrameGrabber {
     public void stop() {
         try {
             grabber.stop();
+            started = false;
         } catch (Exception e) {
             throw new Error(e);
         }
@@ -69,8 +74,7 @@ public class FrameGrabberWrapper extends FrameGrabber {
 
     private static FrameGrabber createDefault() {
         try {
-            LoggerSingleton.GLOBAL.info("FrameGrabber being created...");
-            FrameGrabber frameGrabber = FrameGrabber.createDefault(0);;
+            FrameGrabber frameGrabber = FrameGrabber.createDefault(0);
             LoggerSingleton.GLOBAL.info("FrameGrabber created");
             return frameGrabber;
         } catch (Exception e) {

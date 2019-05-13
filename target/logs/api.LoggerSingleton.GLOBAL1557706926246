@@ -1,0 +1,55 @@
+May 12, 2019 8:22:06 PM com.github.git_leon.logging.SimpleLogger log
+INFO: Training classifier is preloading
+May 12, 2019 8:22:07 PM com.github.git_leon.logging.SimpleLogger log
+INFO: Training classifier has been preloaded
+May 12, 2019 8:22:07 PM com.github.git_leon.logging.SimpleLogger log
+INFO: opencv_objectdetect.class is preloading
+May 12, 2019 8:22:10 PM com.github.git_leon.logging.SimpleLogger log
+INFO: opencv_objectdetect.class has been preloaded
+May 12, 2019 8:22:10 PM com.github.git_leon.logging.SimpleLogger log
+INFO: Classifier created with name [ /Users/leonhunter/.javacpp/cache/raw.github.com/opencv/opencv/master/data/haarcascades/haarcascade_frontalface_alt.xml ]
+May 12, 2019 8:22:11 PM com.github.git_leon.logging.SimpleLogger log
+INFO: FrameGrabber created
+May 12, 2019 8:22:12 PM com.github.git_leon.logging.SimpleLogger log
+INFO: FrameGrabber started
+May 12, 2019 8:22:12 PM com.github.git_leon.logging.SimpleLogger log
+INFO: FrameConverter created
+May 12, 2019 8:22:15 PM com.github.git_leon.logging.SimpleLogger log
+INFO: FrameRecorder created
+May 12, 2019 8:22:15 PM com.github.git_leon.logging.SimpleLogger log
+INFO: FrameRecorder started
+May 12, 2019 8:22:16 PM com.github.git_leon.logging.SimpleLogger log
+INFO: CanvasFrame created
+May 12, 2019 8:22:16 PM com.github.git_leon.logging.SimpleLogger log
+INFO: Creating 3D rotation
+May 12, 2019 8:22:16 PM com.github.git_leon.logging.SimpleLogger log
+INFO: Creating indexers
+May 12, 2019 8:22:16 PM com.github.git_leon.logging.SimpleLogger log
+INFO: Calibrating camera
+May 12, 2019 8:22:16 PM com.github.git_leon.logging.SimpleLogger log
+INFO: ridx = 
+[ 1.0, 0.0, 0.0
+  0.0, 1.0, 0.0
+  0.0, 0.0, 1.0 ]
+May 12, 2019 8:22:18 PM com.github.git_leon.logging.SimpleLogger log
+INFO: Creating 3D rotation
+May 12, 2019 8:22:18 PM com.github.git_leon.logging.SimpleLogger log
+INFO: java.lang.UnsatisfiedLinkError: no jniopencv_cudawarping in java.library.path
+	at java.lang.ClassLoader.loadLibrary(ClassLoader.java:1867)
+	at java.lang.Runtime.loadLibrary0(Runtime.java:870)
+	at java.lang.System.loadLibrary(System.java:1122)
+	at org.bytedeco.javacpp.Loader.loadLibrary(Loader.java:1302)
+	at org.bytedeco.javacpp.Loader.load(Loader.java:1043)
+	at org.bytedeco.javacpp.Loader.load(Loader.java:935)
+	at org.bytedeco.javacpp.opencv_cudawarping.<clinit>(opencv_cudawarping.java:13)
+	at api.wrapper.MatWrapper.warp(MatWrapper.java:35)
+	at api.FaceDetector.detect(FaceDetector.java:49)
+	at api.MainApplication.main(MainApplication.java:9)
+Caused by: java.lang.UnsatisfiedLinkError: no opencv_cudawarping in java.library.path
+	at java.lang.ClassLoader.loadLibrary(ClassLoader.java:1867)
+	at java.lang.Runtime.loadLibrary0(Runtime.java:870)
+	at java.lang.System.loadLibrary(System.java:1122)
+	at org.bytedeco.javacpp.Loader.loadLibrary(Loader.java:1302)
+	at org.bytedeco.javacpp.Loader.load(Loader.java:1021)
+	... 5 more
+

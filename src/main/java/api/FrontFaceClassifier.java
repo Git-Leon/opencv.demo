@@ -21,6 +21,7 @@ public class FrontFaceClassifier {
 
         // We can "cast" Pointer objects by instantiating a new object of the desired class.
         this.classifier = new opencv_objdetect.CascadeClassifier(classifierName);
+        LoggerSingleton.GLOBAL.info("Classifier created with name [ %s ]", classifierName);
     }
 
     private void proloadOpenCvObjectModel() {

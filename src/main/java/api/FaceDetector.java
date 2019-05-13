@@ -2,40 +2,44 @@ package api;
 
 import api.wrapper.*;
 import org.bytedeco.javacpp.opencv_core;
-import org.bytedeco.javacv.CanvasFrame;
 import org.bytedeco.javacv.Frame;
 
-import static org.bytedeco.javacpp.opencv_imgproc.*;
+import static org.bytedeco.javacpp.opencv_imgproc.CV_THRESH_BINARY;
 
 public class FaceDetector {
     private final FrameGrabberWrapper grabber;
     private final FrameConverterWrapper converter;
     private final CanvasFrameWrapper frame;
+    private MatWrapper grabbedImage;
+    private opencv_core.Mat rotatedImage;
+    private FrameRecorderWrapper recorder;
+    private FrontFaceClassifier classifier;
 
     public FaceDetector(String title) {
+        this.classifier = new FrontFaceClassifier();
         this.grabber = new FrameGrabberWrapper();
+        grabber.start();
         this.converter = new FrameConverterWrapper();
+        this.grabbedImage = new MatWrapper(converter.convert(grabber.grab()));
+        this.rotatedImage = grabbedImage.getImage().clone();
+        this.recorder = new FrameRecorderWrapper(grabbedImage);
+        recorder.start();
         this.frame = new CanvasFrameWrapper(title, grabber);
+        grabbedImage.rotate();
     }
 
-    public FaceDetector(CanvasFrame frame) {
-        this(new FrameGrabberWrapper(), new FrameConverterWrapper(), frame);
-    }
-
-    public FaceDetector(FrameGrabberWrapper grabber, FrameConverterWrapper converter, CanvasFrame frame) {
-        this.grabber = grabber;
-        this.converter = converter;
-        this.frame = new CanvasFrameWrapper(frame);
-    }
+//    public FaceDetector(CanvasFrame frame) {
+//        this(new FrameGrabberWrapper(), new FrameConverterWrapper(), frame);
+//    }
+//
+//    public FaceDetector(FrameGrabberWrapper grabber, FrameConverterWrapper converter, CanvasFrame frame) {
+//        this.grabber = grabber;
+//        this.converter = converter;
+//        this.frame = new CanvasFrameWrapper(frame);
+//    }
 
 
     public void detect() {
-        MatWrapper grabbedImage = new MatWrapper(converter.convert(grabber.grab()));
-        opencv_core.Mat rotatedImage = grabbedImage.getImage().clone();
-        FrameRecorderWrapper recorder = new FrameRecorderWrapper(grabbedImage);
-        grabbedImage.rotate();
-        FrontFaceClassifier classifier = new FrontFaceClassifier();
-        recorder.start();
         while (frame.isVisible() && (grabbedImage = new MatWrapper(converter.convert(grabber.grab()))) != null) {
             opencv_core.Mat grayImage = grabbedImage.toGrayImage();
             opencv_core.RectVector faces = new opencv_core.RectVector();

@@ -2,6 +2,7 @@ package api.wrapper;
 
 import api.FrontFaceClassifier;
 import api.Rotator3D;
+import org.bytedeco.javacpp.Loader;
 import org.bytedeco.javacpp.opencv_core;
 import org.bytedeco.javacpp.opencv_cudawarping;
 import org.bytedeco.javacpp.opencv_imgproc;
@@ -12,19 +13,26 @@ import static org.bytedeco.javacpp.opencv_imgproc.arcLength;
 
 public class MatWrapper extends opencv_core.Mat {
     private final opencv_core.Mat image;
-    private final Rotator3D rotator3D;
+    private Rotator3D rotator3D;
 
     public MatWrapper(opencv_core.Mat image) {
         this.image = image;
-        this.rotator3D = new Rotator3D();
+    }
+
+    private Rotator3D getRotator3D() {
+        if (rotator3D == null) {
+            rotator3D = new Rotator3D();
+        }
+        return rotator3D;
     }
 
     public void rotate() {
-        rotator3D.rotate(image);
+        getRotator3D().rotate(image);
     }
 
     public void warp(opencv_core.Mat rotatedImage) {
-        opencv_cudawarping.warpPerspective(image, rotatedImage, rotator3D.getRandomR(), rotatedImage.size());
+        Loader.load(opencv_cudawarping.class);
+        opencv_cudawarping.warpPerspective(image, rotatedImage, getRotator3D().getRandomR(), rotatedImage.size());
     }
 
     public opencv_core.Mat toGrayImage() {

@@ -3,12 +3,17 @@ package api.wrapper;
 import api.LoggerSingleton;
 import org.bytedeco.javacv.CanvasFrame;
 import org.bytedeco.javacv.Frame;
+import org.bytedeco.javacv.FrameGrabber;
 
 public class CanvasFrameWrapper {
     private final CanvasFrame frame;
 
     public CanvasFrameWrapper(CanvasFrame frame) {
         this.frame = frame;
+    }
+
+    public CanvasFrameWrapper(String title, FrameGrabber grabber) {
+        this(title, new FrameGrabberWrapper(grabber));
     }
 
     public CanvasFrameWrapper(String title, FrameGrabberWrapper grabber) {
