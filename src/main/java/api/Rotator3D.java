@@ -24,7 +24,7 @@ public class Rotator3D {
         LoggerSingleton.GLOBAL.info("Creating indexers");
         DoubleIndexer ridx = randomR.createIndexer();
         DoubleIndexer axisIdx = randomAxis.createIndexer();
-        // axisIdx.put(0, (Math.random() - 0.5) / 4, (Math.random() - 0.5) / 4, (Math.random() - 0.5) / 4);
+        axisIdx.put(0, (Math.random() - 0.5) / 4, (Math.random() - 0.5) / 4, (Math.random() - 0.5) / 4);
         LoggerSingleton.GLOBAL.info("Calibrating camera");
         opencv_calib3d.Rodrigues(randomAxis, randomR);
         double f = (mat.cols() + mat.rows()) / 2.0;

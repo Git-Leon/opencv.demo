@@ -22,7 +22,7 @@ public class FaceDetector {
         this.converter = new FrameConverterWrapper();
         this.grabbedImage = new MatWrapper(converter.convert(grabber.grab()));
         this.rotatedImage = grabbedImage.getImage().clone();
-        this.recorder = new FrameRecorderWrapper(grabbedImage);
+        this.recorder = new FrameRecorderWrapper(grabbedImage.getImage());
         recorder.start();
         this.frame = new CanvasFrameWrapper(title, grabber);
         grabbedImage.rotate();

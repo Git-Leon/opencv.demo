@@ -6,7 +6,7 @@ import org.bytedeco.javacpp.opencv_core;
 import org.bytedeco.javacv.Frame;
 import org.bytedeco.javacv.FrameRecorder;
 
-public class FrameRecorderWrapper extends FrameRecorder {
+public class FrameRecorderWrapper {
     private final FrameRecorder recorder;
 
     public FrameRecorderWrapper(FrameRecorder recorder) {
@@ -17,7 +17,7 @@ public class FrameRecorderWrapper extends FrameRecorder {
         this(createDefault(grabbedImage));
     }
 
-    @Override
+    
     public void start() {
         try {
             LoggerSingleton.GLOBAL.info("FrameRecorder started");
@@ -27,7 +27,7 @@ public class FrameRecorderWrapper extends FrameRecorder {
         }
     }
 
-    @Override
+    
     public void stop() {
         try {
             recorder.stop();
@@ -36,7 +36,7 @@ public class FrameRecorderWrapper extends FrameRecorder {
         }
     }
 
-    @Override
+    
     public void record(Frame frame) {
         try {
             recorder.record(frame);
@@ -45,7 +45,7 @@ public class FrameRecorderWrapper extends FrameRecorder {
         }
     }
 
-    @Override
+    
     public void release(){
         try {
             recorder.release();
