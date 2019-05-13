@@ -1,6 +1,7 @@
 package api.wrapper;
 
 import api.FrontFaceClassifier;
+import api.LoggerSingleton;
 import api.Rotator3D;
 import org.bytedeco.javacpp.opencv_core;
 import org.bytedeco.javacpp.opencv_imgproc;
@@ -12,11 +13,17 @@ public class MatWrapper {
     private final opencv_core.Mat image;
     private Rotator3D rotator3D;
 
-    public MatWrapper(opencv_core.Mat image) {
+    public MatWrapper(opencv_core.Mat image, Rotator3D rotator3D) {
         this.image = image;
+        this.rotator3D = rotator3D;
+        LoggerSingleton.GLOBAL.info("MatWrapper created");
     }
 
-    private Rotator3D getRotator3D() {
+    public MatWrapper(opencv_core.Mat image) {
+        this(image, null);
+    }
+
+    public Rotator3D getRotator3D() {
         if (rotator3D == null) {
             rotator3D = new Rotator3D();
         }

@@ -4,7 +4,7 @@ import api.LoggerSingleton;
 import org.bytedeco.javacv.Frame;
 import org.bytedeco.javacv.FrameGrabber;
 
-public class FrameGrabberWrapper extends FrameGrabber {
+public class FrameGrabberWrapper {
     private final FrameGrabber grabber;
     private Boolean started = false;
 
@@ -16,8 +16,6 @@ public class FrameGrabberWrapper extends FrameGrabber {
         this(createDefault());
     }
 
-
-    @Override
     public void start() {
         try {
             if (!started) {
@@ -30,7 +28,7 @@ public class FrameGrabberWrapper extends FrameGrabber {
         }
     }
 
-    @Override
+
     public void stop() {
         try {
             grabber.stop();
@@ -40,7 +38,7 @@ public class FrameGrabberWrapper extends FrameGrabber {
         }
     }
 
-    @Override
+
     public void trigger() {
         try {
             grabber.trigger();
@@ -49,7 +47,7 @@ public class FrameGrabberWrapper extends FrameGrabber {
         }
     }
 
-    @Override
+
     public Frame grab() {
         try {
             return grabber.grab();
@@ -58,7 +56,7 @@ public class FrameGrabberWrapper extends FrameGrabber {
         }
     }
 
-    @Override
+
     public void release() {
         try {
             grabber.release();
@@ -67,7 +65,7 @@ public class FrameGrabberWrapper extends FrameGrabber {
         }
     }
 
-    @Override
+
     public double getGamma() {
         return grabber.getGamma();
     }

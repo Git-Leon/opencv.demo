@@ -40,7 +40,7 @@ public class FaceDetector {
 
 
     public void detect() {
-        while (frame.isVisible() && (grabbedImage = new MatWrapper(converter.convert(grabber.grab()))) != null) {
+        while (frame.isVisible() && (grabbedImage = new MatWrapper(converter.convert(grabber.grab()), grabbedImage.getRotator3D())) != null) {
             opencv_core.Mat grayImage = grabbedImage.toGrayImage();
             opencv_core.RectVector faces = new opencv_core.RectVector();
             grabbedImage.detectFaces(grayImage, faces, classifier);
