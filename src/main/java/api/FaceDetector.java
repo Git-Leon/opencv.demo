@@ -28,22 +28,11 @@ public class FaceDetector {
         grabbedImage.rotate();
     }
 
-//    public FaceDetector(CanvasFrame frame) {
-//        this(new FrameGrabberWrapper(), new FrameConverterWrapper(), frame);
-//    }
-//
-//    public FaceDetector(FrameGrabberWrapper grabber, FrameConverterWrapper converter, CanvasFrame frame) {
-//        this.grabber = grabber;
-//        this.converter = converter;
-//        this.frame = new CanvasFrameWrapper(frame);
-//    }
-
-
     public void detect() {
-        while (frame.isVisible() && (grabbedImage = new MatWrapper(converter.convert(grabber.grab()), grabbedImage.getRotator3D())) != null) {
+        grabbedImage.convert(converter, grabber);
+        while (frame.isVisible()) {
             opencv_core.Mat grayImage = grabbedImage.toGrayImage();
-            opencv_core.RectVector faces = new opencv_core.RectVector();
-            grabbedImage.detectFaces(grayImage, faces, classifier);
+            grabbedImage.detectFaces(grayImage, classifier);
             grabbedImage.threshold(grayImage, 64, 255, CV_THRESH_BINARY);
             grabbedImage.findContours(grayImage);
             grabbedImage.warp(rotatedImage);
@@ -51,6 +40,7 @@ public class FaceDetector {
             Frame rotatedFrame = converter.convert(rotatedImage);
             frame.showImage(rotatedFrame);
             recorder.record(rotatedFrame);
+            grabbedImage.convert(converter, grabber);
         }
         frame.dispose();
         recorder.stop();

@@ -10,20 +10,15 @@ import static org.bytedeco.javacpp.opencv_core.CV_8UC1;
 import static org.bytedeco.javacpp.opencv_imgproc.*;
 
 public class MatWrapper {
-    private final opencv_core.Mat image;
+    private opencv_core.Mat image;
     private Rotator3D rotator3D;
 
-    public MatWrapper(opencv_core.Mat image, Rotator3D rotator3D) {
+    public MatWrapper(opencv_core.Mat image) {
         this.image = image;
-        this.rotator3D = rotator3D;
         LoggerSingleton.GLOBAL.info("MatWrapper created");
     }
 
-    public MatWrapper(opencv_core.Mat image) {
-        this(image, null);
-    }
-
-    public Rotator3D getRotator3D() {
+    private Rotator3D getRotator3D() {
         if (rotator3D == null) {
             rotator3D = new Rotator3D();
         }
@@ -58,7 +53,8 @@ public class MatWrapper {
         }
     }
 
-    public void detectFaces(opencv_core.Mat grayImage, opencv_core.RectVector faces, FrontFaceClassifier classifier) {
+    public void detectFaces(opencv_core.Mat grayImage, FrontFaceClassifier classifier) {
+        opencv_core.RectVector faces = new opencv_core.RectVector();
         classifier.detectMultiScale(grayImage, faces);
         classifier.detectFaces(image, faces, new opencv_core.Point(3));
     }
@@ -77,4 +73,7 @@ public class MatWrapper {
         return new MatWrapper(image.clone());
     }
 
+    public void convert(FrameConverterWrapper converter, FrameGrabberWrapper grabber) {
+        this.image = converter.convert(grabber.grab());
+    }
 }
