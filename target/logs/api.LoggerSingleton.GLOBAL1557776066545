@@ -1,0 +1,4 @@
+May 13, 2019 3:34:31 PM com.github.git_leon.logging.SimpleLogger log
+INFO: Method [ FrameRecorder.createDefault ] executed in [ 976 ] ms
+May 13, 2019 3:34:31 PM com.github.git_leon.logging.SimpleLogger log
+INFO: FrameRecorder created
