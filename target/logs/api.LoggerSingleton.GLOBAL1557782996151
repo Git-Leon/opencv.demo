@@ -1,0 +1,35 @@
+May 13, 2019 5:29:56 PM com.github.git_leon.logging.SimpleLogger log
+INFO: FrameGrabber created
+May 13, 2019 5:29:56 PM com.github.git_leon.logging.SimpleLogger log
+INFO: Training classifier is preloading
+May 13, 2019 5:29:57 PM com.github.git_leon.logging.SimpleLogger log
+INFO: Training classifier has been preloaded
+May 13, 2019 5:29:57 PM com.github.git_leon.logging.SimpleLogger log
+INFO: opencv_objectdetect.class is preloading
+May 13, 2019 5:29:58 PM com.github.git_leon.logging.SimpleLogger log
+INFO: opencv_objectdetect.class has been preloaded
+May 13, 2019 5:29:58 PM com.github.git_leon.logging.SimpleLogger log
+INFO: Classifier created with name [ /Users/leonhunter/.javacpp/cache/raw.github.com/opencv/opencv/master/data/haarcascades/haarcascade_frontalface_alt.xml ]
+May 13, 2019 5:29:58 PM com.github.git_leon.logging.SimpleLogger log
+INFO: FrameConverter created
+May 13, 2019 5:29:59 PM com.github.git_leon.logging.SimpleLogger log
+INFO: FrameGrabber started
+May 13, 2019 5:30:00 PM com.github.git_leon.logging.SimpleLogger log
+INFO: CanvasFrame created
+May 13, 2019 5:30:00 PM com.github.git_leon.logging.SimpleLogger log
+INFO: MatWrapper created
+May 13, 2019 5:30:01 PM com.github.git_leon.logging.SimpleLogger log
+INFO: FrameRecorder created
+May 13, 2019 5:30:01 PM com.github.git_leon.logging.SimpleLogger log
+INFO: FrameRecorder started
+May 13, 2019 5:30:02 PM com.github.git_leon.logging.SimpleLogger log
+INFO: Creating 3D rotation
+May 13, 2019 5:30:02 PM com.github.git_leon.logging.SimpleLogger log
+INFO: Creating indexers
+May 13, 2019 5:30:02 PM com.github.git_leon.logging.SimpleLogger log
+INFO: Calibrating camera
+May 13, 2019 5:30:02 PM com.github.git_leon.logging.SimpleLogger log
+INFO: ridx = 
+[ 0.9970127, -0.07387626, -22.539703
+  0.07159017, 0.9934234, -89.35787
+  2.8992894E-5, 8.747731E-5, 0.9957445 ]

@@ -4,7 +4,7 @@ import java.io.PrintWriter;
 import java.io.StringWriter;
 
 public class MainApplication {
-    public static void main(String[] args) throws Exception {
+    public static void main(String[] args) {
         try {
             new FaceDetector("Title").detect();
         } catch(Throwable t) {

@@ -21,10 +21,10 @@ public class Rotator3D {
     public void rotate(opencv_core.Mat mat) {
         // We can easily and efficiently access the elements of matrices and images
         // through an Indexer object with the set of get() and put() methods.
-        LoggerSingleton.GLOBAL.info("Creating indexers");
+        LoggerSingleton.GLOBAL.info("Creating indexers")
         DoubleIndexer ridx = randomR.createIndexer();
         DoubleIndexer axisIdx = randomAxis.createIndexer();
-        axisIdx.put(0, (Math.random() - 0.5) / 4, (Math.random() - 0.5) / 4, (Math.random() - 0.5) / 4);
+        axisIdx.put(0, 0.0);
         LoggerSingleton.GLOBAL.info("Calibrating camera");
         opencv_calib3d.Rodrigues(randomAxis, randomR);
         double f = (mat.cols() + mat.rows()) / 2.0;

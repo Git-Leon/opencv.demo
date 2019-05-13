@@ -8,27 +8,27 @@ import static org.bytedeco.javacpp.opencv_imgproc.CV_THRESH_BINARY;
 
 public class FaceDetector {
     private final FrameGrabberWrapper grabber;
-    private final FrameConverterWrapper converter;
     private final CanvasFrameWrapper frame;
-    private MatWrapper grabbedImage;
-    private opencv_core.Mat rotatedImage;
-    private FrameRecorderWrapper recorder;
-    private FrontFaceClassifier classifier;
+    private final MatWrapper grabbedImage;
+    private final FrameRecorderWrapper recorder;
+    private final FrameConverterWrapper converter;
+    private final FrontFaceClassifier classifier;
 
     public FaceDetector(String title) {
-        this.classifier = new FrontFaceClassifier();
         this.grabber = new FrameGrabberWrapper();
-        grabber.start();
+        this.classifier = new FrontFaceClassifier();
         this.converter = new FrameConverterWrapper();
+        grabber.start();
+        this.frame = new CanvasFrameWrapper(title, grabber.getGamma());
         this.grabbedImage = new MatWrapper(converter.convert(grabber.grab()));
-        this.rotatedImage = grabbedImage.getImage().clone();
         this.recorder = new FrameRecorderWrapper(grabbedImage.getImage());
-        recorder.start();
-        this.frame = new CanvasFrameWrapper(title, grabber);
-        grabbedImage.rotate();
     }
 
     public void detect() {
+        recorder.start();
+        grabbedImage.rotate();
+        opencv_core.Mat rotatedImage = grabbedImage.getImage().clone();
+
         grabbedImage.convert(converter, grabber);
         while (frame.isVisible()) {
             opencv_core.Mat grayImage = grabbedImage.toGrayImage();

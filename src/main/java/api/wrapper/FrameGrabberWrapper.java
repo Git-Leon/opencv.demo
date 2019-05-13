@@ -39,15 +39,6 @@ public class FrameGrabberWrapper {
     }
 
 
-    public void trigger() {
-        try {
-            grabber.trigger();
-        } catch (Exception e) {
-            throw new Error(e);
-        }
-    }
-
-
     public Frame grab() {
         try {
             return grabber.grab();
@@ -56,14 +47,6 @@ public class FrameGrabberWrapper {
         }
     }
 
-
-    public void release() {
-        try {
-            grabber.release();
-        } catch (Exception e) {
-            throw new Error(e);
-        }
-    }
 
 
     public double getGamma() {
