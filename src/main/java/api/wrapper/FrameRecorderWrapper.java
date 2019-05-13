@@ -1,7 +1,6 @@
 package api.wrapper;
 
 import api.LoggerSingleton;
-import com.github.git_leon.collectionutils.maps.IntrospectiveMap;
 import org.bytedeco.javacpp.opencv_core;
 import org.bytedeco.javacv.Frame;
 import org.bytedeco.javacv.FrameRecorder;
@@ -40,15 +39,6 @@ public class FrameRecorderWrapper {
     public void record(Frame frame) {
         try {
             recorder.record(frame);
-        } catch (Exception e) {
-            throw new Error(e);
-        }
-    }
-
-    
-    public void release(){
-        try {
-            recorder.release();
         } catch (Exception e) {
             throw new Error(e);
         }
