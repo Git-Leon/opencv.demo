@@ -72,7 +72,7 @@ java.lang.UnsatisfiedLinkError: no jniopencv_cudawarping in java.library.path
 	at org.bytedeco.javacpp.Loader.load(Loader.java:935)
 	at org.bytedeco.javacpp.opencv_cudawarping.<clinit>(opencv_cudawarping.java:13)
 	at api.wrapper.MatWrapper.warp(MatWrapper.java:33)
-	at api.FaceDetector.detect(FaceDetector.java:50)
+	at api.facedetector.FaceDetector.detect(FaceDetector.java:50)
 	at api.MainApplication.main(MainApplication.java:9)
 Caused by: java.lang.UnsatisfiedLinkError: no opencv_cudawarping in java.library.path
 	at java.lang.ClassLoader.loadLibrary(ClassLoader.java:1867)
