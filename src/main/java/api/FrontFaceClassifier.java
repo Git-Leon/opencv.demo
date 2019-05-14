@@ -1,73 +1,67 @@
 package api;
 
-import org.bytedeco.javacpp.Loader;
 import org.bytedeco.javacpp.opencv_core;
+import org.bytedeco.javacpp.opencv_imgproc;
 import org.bytedeco.javacpp.opencv_objdetect;
 
-import java.io.File;
-import java.io.IOException;
-import java.net.URL;
+import static org.bytedeco.javacpp.opencv_imgproc.*;
 
-import static org.bytedeco.javacpp.opencv_imgproc.CV_AA;
-import static org.bytedeco.javacpp.opencv_imgproc.fillConvexPoly;
-import static org.bytedeco.javacpp.opencv_imgproc.rectangle;
-
+/**
+ * A Haar Cascade is basically a classifier which is used to
+ * detect the object for which it has been trained for, from the source.
+ * The Haar Cascade is trained by superimposing the positive
+ * image over a set of negative images.
+ *
+ * @return name of classifier
+ */
 public class FrontFaceClassifier {
     private opencv_objdetect.CascadeClassifier classifier;
+    private Rotator3D rotator3D;
 
-    public FrontFaceClassifier() {
-        String classifierName = getClassifierName();
-        proloadOpenCvObjectModel();
-
-        // We can "cast" Pointer objects by instantiating a new object of the desired class.
-        this.classifier = new opencv_objdetect.CascadeClassifier(classifierName);
-        LoggerSingleton.GLOBAL.info("Classifier created with name [ %s ]", classifierName);
+    public FrontFaceClassifier(opencv_objdetect.CascadeClassifier classifier) {
+        this.classifier = classifier;
+        this.rotator3D = new Rotator3D();
     }
 
-    private void proloadOpenCvObjectModel() {
-        // Preload the opencv_objdetect module to work around a known bug.
-        LoggerSingleton.GLOBAL.info("opencv_objectdetect.class is preloading");
-        Loader.load(opencv_objdetect.class);
-        LoggerSingleton.GLOBAL.info("opencv_objectdetect.class has been preloaded");
-    }
-
-    private String getClassifierName() {
-        try {
-            LoggerSingleton.GLOBAL.info("Training classifier is preloading");
-            String address = "https://raw.github.com/opencv/opencv/master/data/haarcascades/haarcascade_frontalface_alt.xml";
-            URL urlOfTrainedClassifier = new URL(address);
-            File frontFaceTrainedClassifier = Loader.cacheResource(urlOfTrainedClassifier);
-            LoggerSingleton.GLOBAL.info("Training classifier has been preloaded");
-            return frontFaceTrainedClassifier.getAbsolutePath();
-        } catch (IOException e) {
-            throw new Error(e);
-        }
-    }
-
-    public void detectMultiScale(opencv_core.Mat grayImage, opencv_core.RectVector rectVector) {
-        this.classifier.detectMultiScale(grayImage, rectVector);
-    }
-
-    public void detectFaces(
-            opencv_core.Mat grabbedImage,
-            opencv_core.RectVector faces,
-            opencv_core.Point hatPoints) {
+    public void detectFaces(opencv_core.Mat image, opencv_core.Mat grayImage) {
+        opencv_core.Point hatPoints = new opencv_core.Point(3);
+        opencv_core.RectVector faces = new opencv_core.RectVector();
+        classifier.detectMultiScale(grayImage, faces);
         long total = faces.size();
         for (long i = 0; i < total; i++) {
             opencv_core.Rect r = faces.get(i);
             int x = r.x(), y = r.y(), w = r.width(), h = r.height();
-            rectangle(grabbedImage, new opencv_core.Point(x, y), new opencv_core.Point(x + w, y + h), opencv_core.Scalar.RED, 1, CV_AA, 0);
+            rectangle(image, new opencv_core.Point(x, y), new opencv_core.Point(x + w, y + h), opencv_core.Scalar.RED, 1, CV_AA, 0);
 
             // To access or pass as argument the elements of a native array, call position() before.
             hatPoints.position(0).x(x - w / 10).y(y - h / 10);
             hatPoints.position(1).x(x + w * 11 / 10).y(y - h / 10);
             hatPoints.position(2).x(x + w / 2).y(y - h / 2);
-            fillConvexPoly(grabbedImage, hatPoints.position(0), 3, opencv_core.Scalar.GREEN, CV_AA, 0);
+            fillConvexPoly(image, hatPoints.position(0), 3, opencv_core.Scalar.GREEN, CV_AA, 0);
         }
+    }
 
+    public void findContours(opencv_core.Mat image, opencv_core.Mat grayImage) {
+        // To check if an output argument is null we may call either isNull() or equals(null).
+        opencv_core.MatVector contours = new opencv_core.MatVector();
+        opencv_imgproc.threshold(grayImage, grayImage, 64, 255, CV_THRESH_BINARY);
+        opencv_imgproc.findContours(grayImage, contours, CV_RETR_LIST, CV_CHAIN_APPROX_SIMPLE);
+        long n = contours.size();
+        for (long i = 0; i < n; i++) {
+            opencv_core.Mat contour = contours.get(i);
+            opencv_core.Mat points = new opencv_core.Mat();
+            approxPolyDP(contour, points, arcLength(contour, true) * 0.02, true);
+            opencv_imgproc.drawContours(image, new opencv_core.MatVector(points), -1, opencv_core.Scalar.BLUE);
+        }
     }
 
     public opencv_objdetect.CascadeClassifier getClassifier() {
         return this.classifier;
+    }
+
+    public opencv_core.Mat warp(opencv_core.Mat image) {
+        opencv_core.Mat rotatedImage = rotator3D.rotate(image);
+        opencv_imgproc.warpPerspective(image, rotatedImage, rotator3D.getTransormationMatrix(), rotatedImage.size());
+        return rotatedImage;
     }
 }

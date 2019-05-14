@@ -1,6 +1,0 @@
-May 12, 2019 8:24:34 PM com.github.git_leon.logging.SimpleLogger log
-INFO: Training classifier is preloading
-May 12, 2019 8:24:36 PM com.github.git_leon.logging.SimpleLogger log
-INFO: Training classifier has been preloaded
-May 12, 2019 8:24:36 PM com.github.git_leon.logging.SimpleLogger log
-INFO: opencv_objectdetect.class is preloading
