@@ -1,31 +1,31 @@
-package api.wrapper;
+package api.facedetector;
 
 import api.FrontFaceClassifier;
-import api.Rotator3D;
+import api.wrapper.*;
 import org.bytedeco.javacpp.opencv_core;
-import org.bytedeco.javacv.Frame;
+import org.bytedeco.javacpp.opencv_objdetect;
+import org.bytedeco.javacv.*;
 
-public class FrameGrabAndConverter {
+public class FaceDetector {
     private final FrameGrabberWrapper grabber;
     private final FrameConverterWrapper converter;
     private final FrontFaceClassifier classifier;
+    private final CanvasFrameWrapper frame;
+    private final FrameRecorderWrapper recorder;
 
-    public FrameGrabAndConverter() {
-        this(new FrameGrabberWrapper(), new FrameConverterWrapper(), new FrontFaceClassifier());
+    FaceDetector(opencv_objdetect.CascadeClassifier classifier, FrameGrabber grabber, OpenCVFrameConverter.ToMat converter, FrameRecorder recorder, CanvasFrame frame) {
+        this.classifier = new FrontFaceClassifier(classifier);
+        this.grabber = new FrameGrabberWrapper(grabber);
+        this.converter = new FrameConverterWrapper(converter);
+        this.frame = new CanvasFrameWrapper(frame);
+        this.recorder = new FrameRecorderWrapper(recorder);
     }
 
-    public FrameGrabAndConverter(FrameGrabberWrapper grabber, FrameConverterWrapper converter, FrontFaceClassifier classifier) {
-        this.grabber = grabber;
-        this.converter = converter;
-        this.classifier = classifier;
-    }
-
-    public void detect(CanvasFrameWrapper frame) {
+    public void detect() {
+        recorder.start();
         grabber.start();
         opencv_core.Mat rotatedImage;
         opencv_core.Mat image = this.grabAndConvert();
-        FrameRecorderWrapper recorder = new FrameRecorderWrapper(image);
-        recorder.start();
         while (frame.isVisible()) {
             opencv_core.Mat grayImage = ImageManipulator.gray(image);
             classifier.detectFaces(image, grayImage);

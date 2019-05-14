@@ -101,7 +101,7 @@ j  org.bytedeco.javacv.FFmpegFrameRecorder.record(Lorg/bytedeco/javacv/Frame;I)V
 j  org.bytedeco.javacv.FFmpegFrameRecorder.record(Lorg/bytedeco/javacv/Frame;)V+3
 j  api.wrapper.FrameRecorderWrapper.record(Lorg/bytedeco/javacv/Frame;)V+5
 j  api.wrapper.FrameGrabAndConverter.detect(Lapi/wrapper/CanvasFrameWrapper;)V+98
-j  api.FaceDetector.detect()V+8
+j  api.facedetector.FaceDetector.detect()V+8
 j  api.MainApplication.main([Ljava/lang/String;)V+9
 v  ~StubRoutines::call_stub
 

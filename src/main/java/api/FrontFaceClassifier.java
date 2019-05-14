@@ -1,6 +1,5 @@
 package api;
 
-import api.wrapper.CascadeClassifierFactory;
 import org.bytedeco.javacpp.opencv_core;
 import org.bytedeco.javacpp.opencv_imgproc;
 import org.bytedeco.javacpp.opencv_objdetect;
@@ -19,8 +18,8 @@ public class FrontFaceClassifier {
     private opencv_objdetect.CascadeClassifier classifier;
     private Rotator3D rotator3D;
 
-    public FrontFaceClassifier() {
-        this.classifier = CascadeClassifierFactory.FRONTALFACE_ALT.createClassifier();
+    public FrontFaceClassifier(opencv_objdetect.CascadeClassifier classifier) {
+        this.classifier = classifier;
         this.rotator3D = new Rotator3D();
     }
 

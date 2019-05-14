@@ -1,17 +1,13 @@
 package api;
 
-import java.io.PrintWriter;
-import java.io.StringWriter;
+import api.facedetector.FaceDetectorFactory;
 
 public class MainApplication {
     public static void main(String[] args) {
         try {
-            new FaceDetector("Title").detect();
+            FaceDetectorFactory.createDefault().detect();
         } catch(Throwable t) {
-            StringWriter sw = new StringWriter();
-            PrintWriter pw = new PrintWriter(sw);
-            t.printStackTrace(pw);
-            LoggerSingleton.GLOBAL.info(sw.toString());
+            LoggerSingleton.GLOBAL.exception(t);
         }
     }
 }

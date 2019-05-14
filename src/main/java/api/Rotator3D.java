@@ -12,15 +12,12 @@ public class Rotator3D {
     private opencv_core.Mat axis;
 
     public Rotator3D() {
-        // Let's create some random 3D rotation...
         LoggerSingleton.GLOBAL.info("Creating 3D rotation");
         this.transormationMatrix = new opencv_core.Mat(3, 3, CV_64FC1);
         this.axis = new opencv_core.Mat(3, 1, CV_64FC1);
     }
 
     public opencv_core.Mat rotate(opencv_core.Mat mat) {
-        // We can easily and efficiently access the elements of matrices and images
-        // through an Indexer object with the set of get() and put() methods.
         LoggerSingleton.GLOBAL.info("Creating indexers");
         double f = (mat.cols() + mat.rows()) / 2.0;
         DoubleIndexer ridx = transormationMatrix.createIndexer();

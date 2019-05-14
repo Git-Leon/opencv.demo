@@ -47,6 +47,7 @@ public enum CascadeClassifierFactory {
         try {
             String fullPath = Loader.cacheResource(urlOfTrainedClassifier).getAbsolutePath();
             LoggerSingleton.GLOBAL.info("Training classifier has been preloaded");
+
             opencv_objdetect.CascadeClassifier classifier = new opencv_objdetect.CascadeClassifier(fullPath);
             LoggerSingleton.GLOBAL.info("Classifier created with file [ %s ]", fullPath);
             return classifier;

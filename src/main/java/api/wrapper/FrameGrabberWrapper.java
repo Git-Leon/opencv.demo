@@ -12,10 +12,6 @@ public class FrameGrabberWrapper {
         this.grabber = grabber;
     }
 
-    public FrameGrabberWrapper() {
-        this(createDefault());
-    }
-
     public void start() {
         try {
             if (!started) {
@@ -42,22 +38,6 @@ public class FrameGrabberWrapper {
     public Frame grab() {
         try {
             return grabber.grab();
-        } catch (Exception e) {
-            throw new Error(e);
-        }
-    }
-
-
-
-    public double getGamma() {
-        return grabber.getGamma();
-    }
-
-    private static FrameGrabber createDefault() {
-        try {
-            FrameGrabber frameGrabber = FrameGrabber.createDefault(0);
-            LoggerSingleton.GLOBAL.info("FrameGrabber created");
-            return frameGrabber;
         } catch (Exception e) {
             throw new Error(e);
         }
