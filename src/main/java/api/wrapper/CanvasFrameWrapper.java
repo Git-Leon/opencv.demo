@@ -8,8 +8,8 @@ import org.bytedeco.javacv.FrameGrabber;
 public class CanvasFrameWrapper {
     private final CanvasFrame frame;
 
-    public CanvasFrameWrapper(String title, Double gamma) {
-        this.frame = new CanvasFrame(title, CanvasFrame.getDefaultGamma() / gamma);
+    public CanvasFrameWrapper(String title) {
+        this.frame = new CanvasFrame(title, CanvasFrame.getDefaultGamma());
         LoggerSingleton.GLOBAL.info("CanvasFrame created");
     }
 

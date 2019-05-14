@@ -19,8 +19,8 @@ public class FrameRecorderWrapper {
     
     public void start() {
         try {
-            LoggerSingleton.GLOBAL.info("FrameRecorder started");
             recorder.start();
+            LoggerSingleton.GLOBAL.info("FrameRecorder started");
         } catch (FrameRecorder.Exception e) {
             throw new Error(e);
         }
