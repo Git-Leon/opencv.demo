@@ -3,7 +3,7 @@
 ## Software Dependencies
 * To run this project you must install [opencv]().
 
-
+<hr><hr>
 
 
 ### OSX Installation
@@ -32,3 +32,18 @@
 #### Checking OpenCV java installation
 * Ensure a version of OpenCV can be found in your local machine directory. (Edit the directory version)
     * `/usr/local/Cellar/opencv/3.x.x/share/OpenCV/java/`
+    
+
+<hr><hr>
+
+###  Ubuntu Mint Installation
+* `sudo apt-get install`
+
+<hr><hr>
+
+### Raspbeian Pi Installation
+* `sudo apt-get install`
+
+<hr><hr>
+### Windows 7 - 11 Installation
+* Navigate to
