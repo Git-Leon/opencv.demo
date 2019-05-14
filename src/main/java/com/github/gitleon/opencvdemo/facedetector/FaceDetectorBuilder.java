@@ -6,6 +6,9 @@ import org.bytedeco.javacv.FrameGrabber;
 import org.bytedeco.javacv.FrameRecorder;
 import org.bytedeco.javacv.OpenCVFrameConverter;
 
+/**
+ * @author leon
+ */
 public class FaceDetectorBuilder {
     private opencv_objdetect.CascadeClassifier classifier;
     private FrameGrabber grabber;

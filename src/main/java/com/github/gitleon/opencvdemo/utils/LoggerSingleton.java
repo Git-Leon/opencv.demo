@@ -5,6 +5,9 @@ import com.github.git_leon.logging.SimpleLogger;
 import java.io.PrintWriter;
 import java.io.StringWriter;
 
+/**
+ * @author leon
+ */
 public enum LoggerSingleton {
     GLOBAL, LEGACY;
     private SimpleLogger logger;

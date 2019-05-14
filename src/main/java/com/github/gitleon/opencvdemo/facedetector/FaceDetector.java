@@ -6,6 +6,9 @@ import org.bytedeco.javacpp.opencv_core;
 import org.bytedeco.javacpp.opencv_objdetect;
 import org.bytedeco.javacv.*;
 
+/**
+ * @author leon
+ */
 public class FaceDetector {
     private final FaceClassifier classifier;
     private final FrameGrabberWrapper grabber;
@@ -25,7 +28,7 @@ public class FaceDetector {
         grabber.start();
         recorder.start();
         while (frame.isVisible()) {
-            Frame convertedFrame = converter.convert(classifier.classify(grabAndConvert()));
+            Frame convertedFrame = converter.convert(classifier.classify(getFrameFromCamera()));
 
             frame.showImage(convertedFrame);
             recorder.record(convertedFrame);
@@ -35,7 +38,7 @@ public class FaceDetector {
         grabber.stop();
     }
 
-    private opencv_core.Mat grabAndConvert() {
+    private opencv_core.Mat getFrameFromCamera() {
         return converter.convert(grabber.grab());
     }
 }

@@ -1,42 +1,41 @@
 package com.github.gitleon.opencvdemo.utils;
 
+import gitleon.utils.exceptionalfunctionalinterface.ExceptionalConsumer;
+import gitleon.utils.exceptionalfunctionalinterface.ExceptionalRunnable;
 import org.bytedeco.javacv.Frame;
 import org.bytedeco.javacv.FrameRecorder;
 
 /**
+ * @author leon
  * used to handle `FrameRecorder` methods which throw exceptions
  */
 public class FrameRecorderWrapper {
     private final FrameRecorder recorder;
+    private boolean started;
 
     public FrameRecorderWrapper(FrameRecorder recorder) {
         this.recorder = recorder;
     }
 
     public void start() {
-        try {
-            recorder.start();
+        if (!started) {
+            ExceptionalRunnable.tryInvoke(recorder::start);
             LoggerSingleton.GLOBAL.info("FrameRecorder started");
-        } catch (FrameRecorder.Exception e) {
-            throw new Error(e);
+            this.started = true;
         }
     }
-
 
     public void stop() {
-        try {
-            recorder.stop();
-        } catch (Exception e) {
-            throw new Error(e);
-        }
+        ExceptionalRunnable.tryInvoke(recorder::stop);
+        LoggerSingleton.GLOBAL.info("FrameRecorder stopped");
+        started = false;
     }
 
-
     public void record(Frame frame) {
-        try {
-            recorder.record(frame);
-        } catch (Exception e) {
-            throw new Error(e);
-        }
+        ExceptionalConsumer.tryInvoke(recorder::record, frame);
+    }
+
+    public boolean isStarted() {
+        return started;
     }
 }
