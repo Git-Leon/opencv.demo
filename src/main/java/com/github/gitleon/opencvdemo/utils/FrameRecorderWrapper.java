@@ -3,6 +3,9 @@ package com.github.gitleon.opencvdemo.utils;
 import org.bytedeco.javacv.Frame;
 import org.bytedeco.javacv.FrameRecorder;
 
+/**
+ * used to handle `FrameRecorder` methods which throw exceptions
+ */
 public class FrameRecorderWrapper {
     private final FrameRecorder recorder;
 

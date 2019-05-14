@@ -18,7 +18,7 @@ public class FaceDetectorFactory {
         FrameRecorder recorder = createDefaultFrameRecorder();
         LoggerSingleton.GLOBAL.info("FrameRecorder created");
 
-        CanvasFrame frame = new CanvasFrame("", CanvasFrame.getDefaultGamma());
+        CanvasFrame frame = new CanvasFrame("", 2.2);
         LoggerSingleton.GLOBAL.info("CanvasFrame created");
 
         return new FaceDetectorBuilder()

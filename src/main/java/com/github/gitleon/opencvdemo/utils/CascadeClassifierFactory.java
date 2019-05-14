@@ -32,7 +32,7 @@ public enum CascadeClassifierFactory {
     UPPERBODY;
 
     static {
-        OpenCVPresetLoader.load(opencv_objdetect.class);
+        PresetLoader.load(opencv_objdetect.class);
     }
 
     private final URL urlOfTrainedClassifier;
