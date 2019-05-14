@@ -8,6 +8,9 @@ import org.bytedeco.javacv.FrameGrabber;
 import org.bytedeco.javacv.FrameRecorder;
 import org.bytedeco.javacv.OpenCVFrameConverter;
 
+/**
+ * @author leon
+ */
 public class FaceDetectorFactory {
     public static FaceDetector createDefault() {
         opencv_objdetect.CascadeClassifier classifier = CascadeClassifierFactory.FRONTALFACE_ALT.createClassifier();

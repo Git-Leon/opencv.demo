@@ -6,6 +6,9 @@ import org.bytedeco.javacpp.opencv_core;
 import org.bytedeco.javacpp.opencv_objdetect;
 import org.bytedeco.javacv.*;
 
+/**
+ * @author leon
+ */
 public class FaceDetector {
     private final FaceClassifier classifier;
     private final FrameGrabberWrapper grabber;

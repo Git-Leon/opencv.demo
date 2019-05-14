@@ -8,6 +8,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 
 /**
+ * @author leon
  * A Haar Cascade is a classifier which is used to
  * detect the object for which it has been trained for, from the source.
  * The Haar Cascade is trained by superimposing the positive

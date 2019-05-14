@@ -4,6 +4,7 @@ import org.bytedeco.javacv.Frame;
 import org.bytedeco.javacv.FrameRecorder;
 
 /**
+ * @author leon
  * used to handle `FrameRecorder` methods which throw exceptions
  */
 public class FrameRecorderWrapper {

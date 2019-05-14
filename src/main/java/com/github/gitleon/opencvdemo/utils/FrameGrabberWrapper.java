@@ -4,6 +4,7 @@ import org.bytedeco.javacv.Frame;
 import org.bytedeco.javacv.FrameGrabber;
 
 /**
+ * @author leon
  * used to handle `FrameGrabber` methods which throw exceptions
  */
 public class FrameGrabberWrapper {
