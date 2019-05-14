@@ -54,9 +54,7 @@ public class MatWrapper {
     }
 
     public void detectFaces(opencv_core.Mat grayImage, FrontFaceClassifier classifier) {
-        opencv_core.RectVector faces = new opencv_core.RectVector();
-        classifier.detectMultiScale(grayImage, faces);
-        classifier.detectFaces(image, faces, new opencv_core.Point(3));
+        classifier.detectFaces(image, grayImage);
     }
 
     public void threshold(opencv_core.Mat image, int i, int i1, int cvThreshBinary) {
@@ -66,11 +64,6 @@ public class MatWrapper {
 
     public opencv_core.Mat getImage() {
         return image;
-    }
-
-    @Override
-    public MatWrapper clone() {
-        return new MatWrapper(image.clone());
     }
 
     public void convert(FrameConverterWrapper converter, FrameGrabberWrapper grabber) {

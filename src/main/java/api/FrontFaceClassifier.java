@@ -1,57 +1,30 @@
 package api;
 
-import org.bytedeco.javacpp.Loader;
+import api.wrapper.CascadeClassifierFactory;
 import org.bytedeco.javacpp.opencv_core;
 import org.bytedeco.javacpp.opencv_objdetect;
 
-import java.io.File;
-import java.io.IOException;
-import java.net.URL;
+import static org.bytedeco.javacpp.opencv_imgproc.*;
 
-import static org.bytedeco.javacpp.opencv_imgproc.CV_AA;
-import static org.bytedeco.javacpp.opencv_imgproc.fillConvexPoly;
-import static org.bytedeco.javacpp.opencv_imgproc.rectangle;
-
+/**
+ * A Haar Cascade is basically a classifier which is used to
+ * detect the object for which it has been trained for, from the source.
+ * The Haar Cascade is trained by superimposing the positive
+ * image over a set of negative images.
+ *
+ * @return name of classifier
+ */
 public class FrontFaceClassifier {
     private opencv_objdetect.CascadeClassifier classifier;
 
     public FrontFaceClassifier() {
-        String classifierName = getClassifierName();
-        proloadOpenCvObjectModel();
-
-        // We can "cast" Pointer objects by instantiating a new object of the desired class.
-        this.classifier = new opencv_objdetect.CascadeClassifier(classifierName);
-        LoggerSingleton.GLOBAL.info("Classifier created with name [ %s ]", classifierName);
+        this.classifier = CascadeClassifierFactory.FRONTALFACE_ALT.createClassifier();
     }
 
-    private void proloadOpenCvObjectModel() {
-        // Preload the opencv_objdetect module to work around a known bug.
-        LoggerSingleton.GLOBAL.info("opencv_objectdetect.class is preloading");
-        Loader.load(opencv_objdetect.class);
-        LoggerSingleton.GLOBAL.info("opencv_objectdetect.class has been preloaded");
-    }
-
-    private String getClassifierName() {
-        try {
-            LoggerSingleton.GLOBAL.info("Training classifier is preloading");
-            String address = "https://raw.github.com/opencv/opencv/master/data/haarcascades/haarcascade_frontalface_alt.xml";
-            URL urlOfTrainedClassifier = new URL(address);
-            File frontFaceTrainedClassifier = Loader.cacheResource(urlOfTrainedClassifier);
-            LoggerSingleton.GLOBAL.info("Training classifier has been preloaded");
-            return frontFaceTrainedClassifier.getAbsolutePath();
-        } catch (IOException e) {
-            throw new Error(e);
-        }
-    }
-
-    public void detectMultiScale(opencv_core.Mat grayImage, opencv_core.RectVector rectVector) {
-        this.classifier.detectMultiScale(grayImage, rectVector);
-    }
-
-    public void detectFaces(
-            opencv_core.Mat grabbedImage,
-            opencv_core.RectVector faces,
-            opencv_core.Point hatPoints) {
+    public void detectFaces(opencv_core.Mat grabbedImage, opencv_core.Mat grayImage) {
+        opencv_core.Point hatPoints = new opencv_core.Point(3);
+        opencv_core.RectVector faces = new opencv_core.RectVector();
+        classifier.detectMultiScale(grayImage, faces);
         long total = faces.size();
         for (long i = 0; i < total; i++) {
             opencv_core.Rect r = faces.get(i);
