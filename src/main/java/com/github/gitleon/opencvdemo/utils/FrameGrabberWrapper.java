@@ -1,5 +1,7 @@
 package com.github.gitleon.opencvdemo.utils;
 
+import gitleon.utils.exceptionalfunctionalinterface.ExceptionalRunnable;
+import gitleon.utils.exceptionalfunctionalinterface.ExceptionalSupplier;
 import org.bytedeco.javacv.Frame;
 import org.bytedeco.javacv.FrameGrabber;
 
@@ -16,33 +18,20 @@ public class FrameGrabberWrapper {
     }
 
     public void start() {
-        try {
-            if (!started) {
-                grabber.start();
-                LoggerSingleton.GLOBAL.info("FrameGrabber started");
-                started = true;
-            }
-        } catch (Exception e) {
-            throw new Error(e);
+        if (!started) {
+            ExceptionalRunnable.tryInvoke(grabber::start);
+            LoggerSingleton.GLOBAL.info("FrameGrabber started");
+            started = true;
         }
     }
-
 
     public void stop() {
-        try {
-            grabber.stop();
-            started = false;
-        } catch (Exception e) {
-            throw new Error(e);
-        }
+        ExceptionalRunnable.tryInvoke(grabber::stop);
+        LoggerSingleton.GLOBAL.info("FrameGrabber stopped");
+        started = false;
     }
 
-
     public Frame grab() {
-        try {
-            return grabber.grab();
-        } catch (Exception e) {
-            throw new Error(e);
-        }
+        return ExceptionalSupplier.tryInvoke(grabber::grab);
     }
 }

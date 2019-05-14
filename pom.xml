@@ -36,6 +36,11 @@
 
 
     <dependencies>
+    <dependency>
+        <groupId>com.github.git-leon</groupId>
+        <artifactId>exceptional-functional-interfaces</artifactId>
+        <version>1.2</version>
+    </dependency>
         <dependency>
             <groupId>com.github.git-leon</groupId>
             <artifactId>collectionutils</artifactId>
