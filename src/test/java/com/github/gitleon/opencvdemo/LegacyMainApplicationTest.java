@@ -150,4 +150,75 @@ public class LegacyMainApplicationTest {
         recorder.stop();
         grabber.stop();
     }
+
+
+    @Test
+    public void original() throws Exception {
+        String classifierName = null;
+        String address = "https://raw.github.com/opencv/opencv/master/data/haarcascades/haarcascade_frontalface_alt.xml";
+        URL urlOfTrainedClassifier = new URL(address);
+        File frontFaceTrainedClassifier = Loader.cacheResource(urlOfTrainedClassifier);
+        classifierName = frontFaceTrainedClassifier.getAbsolutePath();
+        Loader.load(opencv_objdetect.class);
+        opencv_objdetect.CascadeClassifier classifier = new opencv_objdetect.CascadeClassifier(classifierName);
+        FrameGrabber grabber = FrameGrabber.createDefault(0);
+        grabber.start();
+        OpenCVFrameConverter.ToMat converter = new OpenCVFrameConverter.ToMat();
+        opencv_core.Mat grabbedImage = converter.convert(grabber.grab());
+        int height = grabbedImage.rows();
+        int width = grabbedImage.cols();
+        opencv_core.Mat grayImage = new opencv_core.Mat(height, width, CV_8UC1);
+        opencv_core.Mat rotatedImage = grabbedImage.clone();
+        FrameRecorder recorder = FrameRecorder.createDefault("output.avi", grabbedImage.rows(), grabbedImage.cols());
+        recorder.start();
+        CanvasFrame frame = new CanvasFrame("Some Title", CanvasFrame.getDefaultGamma() / grabber.getGamma());
+        opencv_core.Mat randomR = new opencv_core.Mat(3, 3, CV_64FC1),
+                randomAxis = new opencv_core.Mat(3, 1, CV_64FC1);
+        DoubleIndexer Ridx = randomR.createIndexer();
+        DoubleIndexer axisIdx = randomAxis.createIndexer();
+        axisIdx.put(0, (Math.random() - 0.5) / 4,
+                (Math.random() - 0.5) / 4,
+                (Math.random() - 0.5) / 4);
+        Rodrigues(randomAxis, randomR);
+        double f = (width + height) / 2.0;
+        Ridx.put(0, 2, Ridx.get(0, 2) * f);
+        Ridx.put(1, 2, Ridx.get(1, 2) * f);
+        Ridx.put(2, 0, Ridx.get(2, 0) / f);
+        Ridx.put(2, 1, Ridx.get(2, 1) / f);
+        opencv_core.Point hatPoints = new opencv_core.Point(3);
+        while (frame.isVisible() && (grabbedImage = converter.convert(grabber.grab())) != null) {
+            cvtColor(grabbedImage, grayImage, CV_BGR2GRAY);
+            opencv_core.RectVector faces = new opencv_core.RectVector();
+            classifier.detectMultiScale(grayImage, faces);
+            long total = faces.size();
+            for (long i = 0; i < total; i++) {
+                opencv_core.Rect r = faces.get(i);
+                int x = r.x(), y = r.y(), w = r.width(), h = r.height();
+                rectangle(grabbedImage, new opencv_core.Point(x, y), new opencv_core.Point(x + w, y + h), opencv_core.Scalar.RED, 1, CV_AA, 0);
+                hatPoints.position(0).x(x - w / 10).y(y - h / 10);
+                hatPoints.position(1).x(x + w * 11 / 10).y(y - h / 10);
+                hatPoints.position(2).x(x + w / 2).y(y - h / 2);
+                fillConvexPoly(grabbedImage, hatPoints.position(0), 3, opencv_core.Scalar.GREEN, CV_AA, 0);
+            }
+            threshold(grayImage, grayImage, 64, 255, CV_THRESH_BINARY);
+            opencv_core.MatVector contours = new opencv_core.MatVector();
+            findContours(grayImage, contours, CV_RETR_LIST, CV_CHAIN_APPROX_SIMPLE);
+            long n = contours.size();
+            for (long i = 0; i < n; i++) {
+                opencv_core.Mat contour = contours.get(i);
+                opencv_core.Mat points = new opencv_core.Mat();
+                approxPolyDP(contour, points, arcLength(contour, true) * 0.02, true);
+                drawContours(grabbedImage, new opencv_core.MatVector(points), -1, opencv_core.Scalar.BLUE);
+            }
+
+            warpPerspective(grabbedImage, rotatedImage, randomR, rotatedImage.size());
+
+            Frame rotatedFrame = converter.convert(rotatedImage);
+            frame.showImage(rotatedFrame);
+            recorder.record(rotatedFrame);
+        }
+        frame.dispose();
+        recorder.stop();
+        grabber.stop();
+    }
 }

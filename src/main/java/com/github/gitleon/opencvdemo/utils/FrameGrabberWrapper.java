@@ -34,4 +34,8 @@ public class FrameGrabberWrapper {
     public Frame grab() {
         return ExceptionalSupplier.tryInvoke(grabber::grab);
     }
+
+    public boolean isStarted() {
+        return started;
+    }
 }

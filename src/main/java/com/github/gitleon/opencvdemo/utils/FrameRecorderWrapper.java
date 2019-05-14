@@ -34,4 +34,8 @@ public class FrameRecorderWrapper {
     public void record(Frame frame) {
         ExceptionalConsumer.tryInvoke(recorder::record, frame);
     }
+
+    public boolean isStarted() {
+        return started;
+    }
 }
