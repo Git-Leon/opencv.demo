@@ -18,7 +18,6 @@ public class Rotator3D {
     }
 
     public opencv_core.Mat rotate(opencv_core.Mat mat) {
-        LoggerSingleton.GLOBAL.info("Creating indexers");
         double f = (mat.cols() + mat.rows()) / 2.0;
         DoubleIndexer ridx = transormationMatrix.createIndexer();
         DoubleIndexer axisIdx = axis.createIndexer();
@@ -28,7 +27,6 @@ public class Rotator3D {
         ridx.put(2, 0, ridx.get(2, 0) / f);
         ridx.put(2, 1, ridx.get(2, 1) / f);
         opencv_calib3d.Rodrigues(axis, transormationMatrix);
-        LoggerSingleton.GLOBAL.info("Camera calibrated");
         return mat;
     }
 
