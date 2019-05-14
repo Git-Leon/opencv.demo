@@ -1,6 +1,5 @@
-package api.wrapper;
+package com.github.gitleon.opencvdemo.utils;
 
-import api.LoggerSingleton;
 import org.bytedeco.javacv.Frame;
 import org.bytedeco.javacv.FrameGrabber;
 

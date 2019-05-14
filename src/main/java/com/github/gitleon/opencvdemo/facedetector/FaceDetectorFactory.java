@@ -1,7 +1,7 @@
-package api.facedetector;
+package com.github.gitleon.opencvdemo.facedetector;
 
-import api.LoggerSingleton;
-import api.wrapper.CascadeClassifierFactory;
+import com.github.gitleon.opencvdemo.utils.LoggerSingleton;
+import com.github.gitleon.opencvdemo.utils.CascadeClassifierFactory;
 import org.bytedeco.javacpp.opencv_objdetect;
 import org.bytedeco.javacv.CanvasFrame;
 import org.bytedeco.javacv.FrameGrabber;
@@ -15,20 +15,15 @@ public class FaceDetectorFactory {
         FrameGrabber grabber = createDefaultFrameGrabber();
         LoggerSingleton.GLOBAL.info("FrameGrabber created");
 
-        OpenCVFrameConverter.ToMat converter = new OpenCVFrameConverter.ToMat();
-        LoggerSingleton.GLOBAL.info("Frame Converter created");
-
+        FrameRecorder recorder = createDefaultFrameRecorder();
+        LoggerSingleton.GLOBAL.info("FrameRecorder created");
 
         CanvasFrame frame = new CanvasFrame("", CanvasFrame.getDefaultGamma());
         LoggerSingleton.GLOBAL.info("CanvasFrame created");
 
-        FrameRecorder recorder = createDefaultFrameRecorder();
-        LoggerSingleton.GLOBAL.info("FrameRecorder created");
-
         return new FaceDetectorBuilder()
                 .setClassifier(classifier)
                 .setGrabber(grabber)
-                .setConverter(converter)
                 .setFrame(frame)
                 .setRecorder(recorder)
                 .build();

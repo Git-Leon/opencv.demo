@@ -1,5 +1,6 @@
-package api;
+package com.github.gitleon.opencvdemo;
 
+import com.github.gitleon.opencvdemo.utils.LoggerSingleton;
 import org.bytedeco.javacpp.Loader;
 import org.bytedeco.javacpp.indexer.DoubleIndexer;
 import org.bytedeco.javacpp.opencv_objdetect;
@@ -71,7 +72,7 @@ public class LegacyMainApplication {
         // The OpenCVFrameRecorder class simply uses the VideoWriter of opencv_videoio,
         // but FFmpegFrameRecorder also exists as a more versatile alternative.
         FrameRecorder recorder = FrameRecorder.createDefault("output.avi", grabbedImage.rows(), grabbedImage.cols());;
-        LoggerSingleton.GLOBAL.info("FrameRecorder created");
+        LoggerSingleton.LEGACY.info("FrameRecorder created");
         recorder.start();
         LoggerSingleton.LEGACY.info("FrameRecorder started");
 

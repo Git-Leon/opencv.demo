@@ -1,4 +1,4 @@
-package api;
+package com.github.gitleon.opencvdemo.facedetector.classifier;
 
 import org.bytedeco.javacpp.opencv_core;
 import org.bytedeco.javacpp.opencv_imgproc;
@@ -6,24 +6,25 @@ import org.bytedeco.javacpp.opencv_objdetect;
 
 import static org.bytedeco.javacpp.opencv_imgproc.*;
 
-/**
- * A Haar Cascade is basically a classifier which is used to
- * detect the object for which it has been trained for, from the source.
- * The Haar Cascade is trained by superimposing the positive
- * image over a set of negative images.
- *
- * @return name of classifier
- */
 public class FrontFaceClassifier {
     private opencv_objdetect.CascadeClassifier classifier;
-    private Rotator3D rotator3D;
 
     public FrontFaceClassifier(opencv_objdetect.CascadeClassifier classifier) {
         this.classifier = classifier;
-        this.rotator3D = new Rotator3D();
     }
 
-    public void detectFaces(opencv_core.Mat image, opencv_core.Mat grayImage) {
+    public opencv_core.Mat classify(opencv_core.Mat image) {
+        ImageManipulator imageManipulator = new ImageManipulator();
+        opencv_core.Mat grayImage = imageManipulator.gray(image);
+
+        classifyFaces(image, grayImage);
+        classifyContours(image, grayImage);
+
+        imageManipulator.rotate(image);
+        return image;
+    }
+
+    private void classifyFaces(opencv_core.Mat image, opencv_core.Mat grayImage) {
         opencv_core.Point hatPoints = new opencv_core.Point(3);
         opencv_core.RectVector faces = new opencv_core.RectVector();
         classifier.detectMultiScale(grayImage, faces);
@@ -32,8 +33,6 @@ public class FrontFaceClassifier {
             opencv_core.Rect r = faces.get(i);
             int x = r.x(), y = r.y(), w = r.width(), h = r.height();
             rectangle(image, new opencv_core.Point(x, y), new opencv_core.Point(x + w, y + h), opencv_core.Scalar.RED, 1, CV_AA, 0);
-
-            // To access or pass as argument the elements of a native array, call position() before.
             hatPoints.position(0).x(x - w / 10).y(y - h / 10);
             hatPoints.position(1).x(x + w * 11 / 10).y(y - h / 10);
             hatPoints.position(2).x(x + w / 2).y(y - h / 2);
@@ -41,8 +40,8 @@ public class FrontFaceClassifier {
         }
     }
 
-    public void findContours(opencv_core.Mat image, opencv_core.Mat grayImage) {
-        // To check if an output argument is null we may call either isNull() or equals(null).
+
+    private void classifyContours(opencv_core.Mat image, opencv_core.Mat grayImage) {
         opencv_core.MatVector contours = new opencv_core.MatVector();
         opencv_imgproc.threshold(grayImage, grayImage, 64, 255, CV_THRESH_BINARY);
         opencv_imgproc.findContours(grayImage, contours, CV_RETR_LIST, CV_CHAIN_APPROX_SIMPLE);
@@ -53,15 +52,5 @@ public class FrontFaceClassifier {
             approxPolyDP(contour, points, arcLength(contour, true) * 0.02, true);
             opencv_imgproc.drawContours(image, new opencv_core.MatVector(points), -1, opencv_core.Scalar.BLUE);
         }
-    }
-
-    public opencv_objdetect.CascadeClassifier getClassifier() {
-        return this.classifier;
-    }
-
-    public opencv_core.Mat warp(opencv_core.Mat image) {
-        opencv_core.Mat rotatedImage = rotator3D.rotate(image);
-        opencv_imgproc.warpPerspective(image, rotatedImage, rotator3D.getTransormationMatrix(), rotatedImage.size());
-        return rotatedImage;
     }
 }

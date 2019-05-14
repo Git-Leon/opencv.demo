@@ -1,7 +1,5 @@
-package api.wrapper;
+package com.github.gitleon.opencvdemo.utils;
 
-import api.LoggerSingleton;
-import org.bytedeco.javacpp.opencv_core;
 import org.bytedeco.javacv.Frame;
 import org.bytedeco.javacv.FrameRecorder;
 
@@ -11,7 +9,7 @@ public class FrameRecorderWrapper {
     public FrameRecorderWrapper(FrameRecorder recorder) {
         this.recorder = recorder;
     }
-    
+
     public void start() {
         try {
             recorder.start();
@@ -21,7 +19,7 @@ public class FrameRecorderWrapper {
         }
     }
 
-    
+
     public void stop() {
         try {
             recorder.stop();
@@ -30,7 +28,7 @@ public class FrameRecorderWrapper {
         }
     }
 
-    
+
     public void record(Frame frame) {
         try {
             recorder.record(frame);

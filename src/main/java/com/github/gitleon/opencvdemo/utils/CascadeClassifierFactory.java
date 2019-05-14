@@ -1,6 +1,5 @@
-package api.wrapper;
+package com.github.gitleon.opencvdemo.utils;
 
-import api.LoggerSingleton;
 import org.bytedeco.javacpp.Loader;
 import org.bytedeco.javacpp.opencv_objdetect;
 
@@ -8,17 +7,23 @@ import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
 
+/**
+ * A Haar Cascade is a classifier which is used to
+ * detect the object for which it has been trained for, from the source.
+ * The Haar Cascade is trained by superimposing the positive
+ * image over a set of negative images.
+ */
 public enum CascadeClassifierFactory {
     EYE,
     EYE_TREE_EYEGLASSES,
-    FRONTALCAT_FACE,
-    FRONTALCAT_FACE_EXTENDED,
+    FRONTALCATFACE,
+    FRONTALCATFACE_EXTENDED,
     FRONTALFACE_ALT,
     FRONTALFACE_ALT2,
     FRONTALFACE_ALT_TREE,
     FULLBODY,
     LEFTEYE_2SPLITS,
-    LICENSE_PLATE_RUS_16STAGES,
+    LICENCE_PLATE_RUS_16STAGES,
     LOWERBODY,
     PROFILEFACE,
     RIGHTEYE_2SPLITS,
@@ -46,10 +51,8 @@ public enum CascadeClassifierFactory {
     public opencv_objdetect.CascadeClassifier createClassifier() {
         try {
             String fullPath = Loader.cacheResource(urlOfTrainedClassifier).getAbsolutePath();
-            LoggerSingleton.GLOBAL.info("Training classifier has been preloaded");
-
             opencv_objdetect.CascadeClassifier classifier = new opencv_objdetect.CascadeClassifier(fullPath);
-            LoggerSingleton.GLOBAL.info("Classifier created with file [ %s ]", fullPath);
+            LoggerSingleton.GLOBAL.info("Classifier created from file [ %s ]", fullPath);
             return classifier;
         } catch (IOException e) {
             throw new Error(e);
