@@ -7,6 +7,7 @@
 
 
 <hr><hr>
+
 ## Software Dependencies
 * To run this project you must install [opencv]().
 
@@ -39,16 +40,32 @@
     * `/usr/local/Cellar/opencv/3.x.x/share/OpenCV/java/`
     
 
+
+
+
+
+
 <hr>
 
 ###  Ubuntu Mint Installation
 * `sudo apt-get install`
+
+
+
+
+
 
 <hr>
 
 ### Raspbeian Pi Installation
 * `sudo apt-get install`
 
+
+
+
+
+
 <hr>
+
 ### Windows 7 - 11 Installation
 * Navigate to
