@@ -1,6 +1,7 @@
-package api;
+package com.github.gitleon.opencvdemo;
 
-import api.facedetector.FaceDetectorFactory;
+import com.github.gitleon.opencvdemo.facedetector.FaceDetectorFactory;
+import com.github.gitleon.opencvdemo.utils.LoggerSingleton;
 
 public class MainApplication {
     public static void main(String[] args) {

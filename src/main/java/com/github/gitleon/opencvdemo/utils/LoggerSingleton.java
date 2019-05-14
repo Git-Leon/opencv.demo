@@ -1,4 +1,4 @@
-package api;
+package com.github.gitleon.opencvdemo.utils;
 
 import com.github.git_leon.logging.SimpleLogger;
 
