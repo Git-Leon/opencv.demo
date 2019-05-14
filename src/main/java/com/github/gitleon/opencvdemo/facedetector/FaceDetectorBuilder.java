@@ -1,4 +1,4 @@
-package api.facedetector;
+package com.github.gitleon.opencvdemo.facedetector;
 
 import org.bytedeco.javacpp.opencv_objdetect;
 import org.bytedeco.javacv.CanvasFrame;
@@ -9,7 +9,6 @@ import org.bytedeco.javacv.OpenCVFrameConverter;
 public class FaceDetectorBuilder {
     private opencv_objdetect.CascadeClassifier classifier;
     private FrameGrabber grabber;
-    private OpenCVFrameConverter.ToMat converter;
     private CanvasFrame frame;
     private FrameRecorder recorder;
 
@@ -20,11 +19,6 @@ public class FaceDetectorBuilder {
 
     public FaceDetectorBuilder setGrabber(FrameGrabber grabber) {
         this.grabber = grabber;
-        return this;
-    }
-
-    public FaceDetectorBuilder setConverter(OpenCVFrameConverter.ToMat converter) {
-        this.converter = converter;
         return this;
     }
 
@@ -39,6 +33,6 @@ public class FaceDetectorBuilder {
     }
 
     public FaceDetector build() {
-        return new FaceDetector(classifier, grabber, converter, recorder, frame);
+        return new FaceDetector(classifier, grabber, recorder, frame);
     }
 }

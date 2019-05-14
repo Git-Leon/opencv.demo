@@ -1,9 +1,11 @@
-package api.wrapper;
+package com.github.gitleon.opencvdemo.utils;
 
-import api.LoggerSingleton;
 import org.bytedeco.javacv.Frame;
 import org.bytedeco.javacv.FrameGrabber;
 
+/**
+ * used to handle `FrameGrabber` methods which throw exceptions
+ */
 public class FrameGrabberWrapper {
     private final FrameGrabber grabber;
     private Boolean started = false;
