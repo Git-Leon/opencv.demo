@@ -47,7 +47,7 @@
 
 <hr>
 
-###  Ubuntu Mint Installation
+###  Ubuntu Mint Installation (in development)
 * `sudo apt-get install`
 
 
@@ -57,7 +57,7 @@
 
 <hr>
 
-### Raspbeian Pi Installation
+### Raspbeian Pi Installation (in development)
 * `sudo apt-get install`
 
 
@@ -67,5 +67,5 @@
 
 <hr>
 
-### Windows 7 - 11 Installation
+### Windows 7 - 11 Installation (in development)
 * Navigate to
