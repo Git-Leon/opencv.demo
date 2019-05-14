@@ -1,9 +1,14 @@
 # OpenCV for Java; Face Detection
+* The of intent of this project is to create a way to easily interact with `OpenCV` on any platform. 
 
-## Software Dependencies
-* To run this project you must install [opencv]().
+## Overview
+* **Objective** - To implement an `OpenCV`-wrapper-library
+* **Purpose** - to establish a small importable `OpenCV`-wrapper-library to simplify much of the bloat associated with current library architecture
+
 
 <hr><hr>
+## Software Dependencies
+* To run this project you must install [opencv]().
 
 
 ### OSX Installation
@@ -34,16 +39,16 @@
     * `/usr/local/Cellar/opencv/3.x.x/share/OpenCV/java/`
     
 
-<hr><hr>
+<hr>
 
 ###  Ubuntu Mint Installation
 * `sudo apt-get install`
 
-<hr><hr>
+<hr>
 
 ### Raspbeian Pi Installation
 * `sudo apt-get install`
 
-<hr><hr>
+<hr>
 ### Windows 7 - 11 Installation
 * Navigate to
