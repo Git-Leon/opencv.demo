@@ -26,11 +26,17 @@ public class FaceDetector {
     public void start() {
         grabber.start();
         recorder.start();
-        while (canvas.isVisible()) {
+    }
+
+    public void detect() {
+        if(canvas.isVisible()) {
             Frame frame = getFrameFromCamera();
             canvas.showImage(frame);
             recorder.record(frame);
         }
+    }
+
+    public void stop() {
         canvas.dispose();
         recorder.stop();
         grabber.stop();
