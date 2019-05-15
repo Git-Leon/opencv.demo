@@ -34,7 +34,7 @@ public class FaceDetectorFactory {
 
         FrameRecorder recorder = ExceptionalSupplier.tryInvoke(
                 () -> FrameRecorder.createDefault("output.avi", 1280, 720));
-        LoggerSingleton.GLOBAL.info("FrameRecorder created");
+        logger.info("FrameRecorder created");
 
         return new FaceDetectorBuilder()
                 .setClassifier(classifier)

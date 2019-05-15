@@ -10,7 +10,7 @@ public class MainApplication {
     public static void main(String[] args) {
         try {
             new FaceDetectorFactory(LoggerSingleton.GLOBAL).createDefault().detect();
-        } catch(Throwable throwable) {
+        } catch (Throwable throwable) {
             LoggerSingleton.GLOBAL.throwable(throwable);
         }
     }

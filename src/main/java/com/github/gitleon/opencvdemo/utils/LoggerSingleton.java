@@ -10,12 +10,17 @@ import java.util.logging.Logger;
  */
 public enum LoggerSingleton implements SimpleLoggerInterface  {
     GLOBAL, LEGACY;
-    private SimpleLogger logger;
+    private SimpleLoggerInterface logger;
 
     LoggerSingleton() {
         this.logger = new SimpleLogger(toString() + System.currentTimeMillis());
     }
 
+    public void setLogger(SimpleLoggerInterface logger) {
+        this.logger = logger;
+    }
+
+    @Override
     public void error(String message, Object... args) {
         logger.error(message, args);
     }
