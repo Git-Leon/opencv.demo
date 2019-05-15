@@ -9,9 +9,9 @@ import com.github.gitleon.opencvdemo.utils.LoggerSingleton;
 public class MainApplication {
     public static void main(String[] args) {
         try {
-            FaceDetectorFactory.createDefault().detect();
-        } catch(Throwable t) {
-            LoggerSingleton.GLOBAL.exception(t);
+            new FaceDetectorFactory(LoggerSingleton.GLOBAL).createDefault().detect();
+        } catch(Throwable throwable) {
+            LoggerSingleton.GLOBAL.throwable(throwable);
         }
     }
 }

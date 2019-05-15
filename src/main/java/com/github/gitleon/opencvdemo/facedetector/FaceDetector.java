@@ -28,7 +28,7 @@ public class FaceDetector {
         grabber.start();
         recorder.start();
         while (frame.isVisible()) {
-            Frame convertedFrame = converter.convert(classifier.classify(getFrameFromCamera()));
+            Frame convertedFrame = converter.convert(getFrameFromCamera());
 
             frame.showImage(convertedFrame);
             recorder.record(convertedFrame);
@@ -39,6 +39,6 @@ public class FaceDetector {
     }
 
     private opencv_core.Mat getFrameFromCamera() {
-        return converter.convert(grabber.grab());
+        return classifier.classify(converter.convert(grabber.grab()));
     }
 }

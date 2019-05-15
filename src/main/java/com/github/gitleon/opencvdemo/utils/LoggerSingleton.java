@@ -1,14 +1,14 @@
 package com.github.gitleon.opencvdemo.utils;
 
 import com.github.git_leon.logging.SimpleLogger;
+import com.github.git_leon.logging.SimpleLoggerInterface;
 
-import java.io.PrintWriter;
-import java.io.StringWriter;
+import java.util.logging.Logger;
 
 /**
  * @author leon
  */
-public enum LoggerSingleton {
+public enum LoggerSingleton implements SimpleLoggerInterface  {
     GLOBAL, LEGACY;
     private SimpleLogger logger;
 
@@ -16,19 +16,28 @@ public enum LoggerSingleton {
         this.logger = new SimpleLogger(toString() + System.currentTimeMillis());
     }
 
-    public void info(String message, Object... args) {
-        logger.info(message, args);
-    }
-
     public void error(String message, Object... args) {
         logger.error(message, args);
     }
 
-    public void exception(Throwable t) {
-        StringWriter sw = new StringWriter();
-        PrintWriter pw = new PrintWriter(sw);
-        t.printStackTrace(pw);
-        logger.error(sw.toString());
+    @Override
+    public void enabled() {
+        logger.enabled();
+    }
+
+    @Override
+    public void disble() {
+        logger.disble();
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return logger.isEnabled();
+    }
+
+    @Override
+    public Logger getLogger() {
+        return logger.getLogger();
     }
 
     @Override

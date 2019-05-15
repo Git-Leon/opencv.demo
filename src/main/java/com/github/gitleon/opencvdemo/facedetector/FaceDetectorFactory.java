@@ -1,5 +1,6 @@
 package com.github.gitleon.opencvdemo.facedetector;
 
+import com.github.git_leon.logging.SimpleLoggerInterface;
 import com.github.gitleon.opencvdemo.utils.CascadeClassifierFactory;
 import com.github.gitleon.opencvdemo.utils.LoggerSingleton;
 import gitleon.utils.exceptionalfunctionalinterface.ExceptionalBiFunction;
@@ -14,16 +15,22 @@ import org.bytedeco.javacv.FrameRecorder;
  * @author leon
  */
 public class FaceDetectorFactory {
-    public static FaceDetector createDefault() {
+    private SimpleLoggerInterface logger;
+
+    public FaceDetectorFactory(SimpleLoggerInterface logger) {
+        this.logger = logger;
+    }
+
+    public FaceDetector createDefault() {
         opencv_objdetect.CascadeClassifier classifier = CascadeClassifierFactory.FRONTALFACE_ALT.createClassifier();
 
         CanvasFrame frame = ExceptionalBiFunction.tryInvoke(
                 CanvasFrame::new, "", 2.2);
-        LoggerSingleton.GLOBAL.info("CanvasFrame created");
+        logger.info("CanvasFrame created");
 
         FrameGrabber grabber = ExceptionalFunction.tryInvoke(
                 FrameGrabber::createDefault, 0);
-        LoggerSingleton.GLOBAL.info("FrameGrabber created");
+        logger.info("FrameGrabber created");
 
         FrameRecorder recorder = ExceptionalSupplier.tryInvoke(
                 () -> FrameRecorder.createDefault("output.avi", 1280, 720));
