@@ -3,13 +3,13 @@ package com.github.gitleon.opencvdemo.utils;
 import com.github.git_leon.logging.SimpleLogger;
 import com.github.git_leon.logging.SimpleLoggerInterface;
 
-import java.util.logging.Logger;
+import java.util.logging.Level;
 
 /**
  * @author leon
  */
 public enum LoggerSingleton implements SimpleLoggerInterface  {
-    GLOBAL, LEGACY;
+    GLOBAL;
     private SimpleLoggerInterface logger;
 
     LoggerSingleton() {
@@ -21,8 +21,8 @@ public enum LoggerSingleton implements SimpleLoggerInterface  {
     }
 
     @Override
-    public void error(String message, Object... args) {
-        logger.error(message, args);
+    public void log(Level level, String s, Object... objects) {
+        logger.log(level, s, objects);
     }
 
     @Override
@@ -40,10 +40,6 @@ public enum LoggerSingleton implements SimpleLoggerInterface  {
         return logger.isEnabled();
     }
 
-    @Override
-    public Logger getLogger() {
-        return logger.getLogger();
-    }
 
     @Override
     public String toString() {

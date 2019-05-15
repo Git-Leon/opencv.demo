@@ -2,6 +2,7 @@ package com.github.gitleon.opencvdemo.facedetector;
 
 import com.github.git_leon.logging.SimpleLoggerInterface;
 import com.github.gitleon.opencvdemo.utils.CascadeClassifierFactory;
+import com.github.gitleon.opencvdemo.utils.CascadeClassifierWrapper;
 import com.github.gitleon.opencvdemo.utils.LoggerSingleton;
 import gitleon.utils.exceptionalfunctionalinterface.ExceptionalBiFunction;
 import gitleon.utils.exceptionalfunctionalinterface.ExceptionalFunction;
@@ -22,7 +23,8 @@ public class FaceDetectorFactory {
     }
 
     public FaceDetector createDefault() {
-        opencv_objdetect.CascadeClassifier classifier = CascadeClassifierFactory.FRONTALFACE_ALT.createClassifier();
+        CascadeClassifierWrapper classifier = CascadeClassifierFactory.FRONTALFACE_ALT.createClassifier();
+        logger.info("Classifier created from file [ %s ]", classifier.getFileName());
 
         CanvasFrame frame = ExceptionalBiFunction.tryInvoke(
                 CanvasFrame::new, "", 2.2);
