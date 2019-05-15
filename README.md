@@ -6,6 +6,39 @@
 * **Purpose** - to establish a small importable `OpenCV`-wrapper-library to simplify much of the bloat associated with current library architecture
 
 
+## Usage
+* This dependency is hosted on [packagecloud.io](https://packagecloud.io/git-leon/utils/packages/)
+
+### Step 1 - Add Maven Repository to `pom.xml`
+* Because this dependency is hosted on a private server, not MavenCentral, the `pom.xml` must be configured to search in the proper repository.
+
+```xml
+<repositories>
+  <repository>
+    <id>git-leon-utils</id>
+    <url>https://packagecloud.io/git-leon/utils/maven2</url>
+    <releases>
+      <enabled>true</enabled>
+    </releases>
+    <snapshots>
+      <enabled>true</enabled>
+    </snapshots>
+  </repository>
+</repositories>
+```
+
+### Step 2 - Add Maven Dependency to `pom.xml`
+* To use this project, add the dependency to your `pom.xml`
+
+```xml
+<dependency>
+  <groupId>com.github.git-leon</groupId>
+  <artifactId>opencvl</artifactId>
+  <version>1.0</version>
+</dependency>
+```
+
+
 <hr><hr>
 
 ## Software Dependencies
