@@ -8,7 +8,7 @@ import org.bytedeco.javacv.*;
 /**
  * @author leon
  */
-public class FaceDetector {
+public class FaceDetector implements FaceDetectorInterface {
     private final FaceClassifier classifier;
     private final FrameGrabberWrapper grabber;
     private final FrameRecorderWrapper recorder;
@@ -23,11 +23,13 @@ public class FaceDetector {
         this.canvas = canvas;
     }
 
+    @Override
     public void start() {
         grabber.start();
         recorder.start();
     }
 
+    @Override
     public void detect() {
         if(canvas.isVisible()) {
             Frame frame = getFrameFromCamera();
@@ -36,6 +38,7 @@ public class FaceDetector {
         }
     }
 
+    @Override
     public void stop() {
         canvas.dispose();
         recorder.stop();
