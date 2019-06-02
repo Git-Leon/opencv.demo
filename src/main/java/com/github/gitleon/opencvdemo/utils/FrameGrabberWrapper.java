@@ -20,14 +20,12 @@ public class FrameGrabberWrapper {
     public void start() {
         if (!started) {
             ExceptionalRunnable.tryInvoke(grabber::start);
-            LoggerSingleton.GLOBAL.info("FrameGrabber started");
             started = true;
         }
     }
 
     public void stop() {
         ExceptionalRunnable.tryInvoke(grabber::stop);
-        LoggerSingleton.GLOBAL.info("FrameGrabber stopped");
         started = false;
     }
 

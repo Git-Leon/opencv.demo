@@ -20,14 +20,12 @@ public class FrameRecorderWrapper {
     public void start() {
         if (!started) {
             ExceptionalRunnable.tryInvoke(recorder::start);
-            LoggerSingleton.GLOBAL.info("FrameRecorder started");
             this.started = true;
         }
     }
 
     public void stop() {
         ExceptionalRunnable.tryInvoke(recorder::stop);
-        LoggerSingleton.GLOBAL.info("FrameRecorder stopped");
         started = false;
     }
 

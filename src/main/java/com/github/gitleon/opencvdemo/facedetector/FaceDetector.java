@@ -2,43 +2,50 @@ package com.github.gitleon.opencvdemo.facedetector;
 
 import com.github.gitleon.opencvdemo.utils.FrameGrabberWrapper;
 import com.github.gitleon.opencvdemo.utils.FrameRecorderWrapper;
-import org.bytedeco.javacpp.opencv_core;
 import org.bytedeco.javacpp.opencv_objdetect;
 import org.bytedeco.javacv.*;
 
 /**
  * @author leon
  */
-public class FaceDetector {
+public class FaceDetector implements FaceDetectorInterface {
     private final FaceClassifier classifier;
     private final FrameGrabberWrapper grabber;
     private final FrameRecorderWrapper recorder;
     private final OpenCVFrameConverter.ToMat converter;
-    private final CanvasFrame frame;
+    private final CanvasFrame canvas;
 
-    FaceDetector(opencv_objdetect.CascadeClassifier classifier, FrameGrabber grabber, FrameRecorder recorder, CanvasFrame frame) {
+    FaceDetector(opencv_objdetect.CascadeClassifier classifier, FrameGrabber grabber, FrameRecorder recorder, CanvasFrame canvas) {
         this.classifier = new FaceClassifier(classifier);
         this.grabber = new FrameGrabberWrapper(grabber);
         this.recorder = new FrameRecorderWrapper(recorder);
         this.converter = new OpenCVFrameConverter.ToMat();
-        this.frame = frame;
+        this.canvas = canvas;
     }
 
-    public void detect() {
+    @Override
+    public void start() {
         grabber.start();
         recorder.start();
-        while (frame.isVisible()) {
-            Frame convertedFrame = converter.convert(classifier.classify(getFrameFromCamera()));
+    }
 
-            frame.showImage(convertedFrame);
-            recorder.record(convertedFrame);
+    @Override
+    public void detect() {
+        if(canvas.isVisible()) {
+            Frame frame = getFrameFromCamera();
+            canvas.showImage(frame);
+            recorder.record(frame);
         }
-        frame.dispose();
+    }
+
+    @Override
+    public void stop() {
+        canvas.dispose();
         recorder.stop();
         grabber.stop();
     }
 
-    private opencv_core.Mat getFrameFromCamera() {
-        return converter.convert(grabber.grab());
+    private Frame getFrameFromCamera() {
+        return converter.convert(classifier.classify(converter.convert(grabber.grab())));
     }
 }

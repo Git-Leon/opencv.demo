@@ -100,7 +100,7 @@ feeling for the training data check out the CBCL data set:
 http://www.ai.mit.edu/projects/cbcl/software-datasets/PedestrianData.html
 
 There is also a small number of false alarms in this sequence.  
-NOTE: This is per frame detection, not tracking (which is also one of
+NOTE: This is per canvas detection, not tracking (which is also one of
 the reasons why it is not mislead by the person's shadow on the back
 wall). 
 

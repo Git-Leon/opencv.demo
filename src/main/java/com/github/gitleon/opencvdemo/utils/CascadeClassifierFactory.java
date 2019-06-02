@@ -10,7 +10,7 @@ import java.net.URL;
 /**
  * @author leon
  * A Haar Cascade is a classifier which is used to
- * detect the object for which it has been trained for, from the source.
+ * start the object for which it has been trained for, from the source.
  * The Haar Cascade is trained by superimposing the positive
  * image over a set of negative images.
  */
@@ -33,7 +33,7 @@ public enum CascadeClassifierFactory {
     UPPERBODY;
 
     static {
-        PresetLoader.load(opencv_objdetect.class);
+        new PresetLoader(LoggerSingleton.GLOBAL).load(opencv_objdetect.class);
     }
 
     private final URL urlOfTrainedClassifier;
@@ -49,14 +49,15 @@ public enum CascadeClassifierFactory {
         }
     }
 
-    public opencv_objdetect.CascadeClassifier createClassifier() {
+    public String getFullPath() {
         try {
-            String fullPath = Loader.cacheResource(urlOfTrainedClassifier).getAbsolutePath();
-            opencv_objdetect.CascadeClassifier classifier = new opencv_objdetect.CascadeClassifier(fullPath);
-            LoggerSingleton.GLOBAL.info("Classifier created from file [ %s ]", fullPath);
-            return classifier;
+            return Loader.cacheResource(urlOfTrainedClassifier).getAbsolutePath();
         } catch (IOException e) {
             throw new Error(e);
         }
+    }
+
+    public CascadeClassifierWrapper createClassifier() {
+        return new CascadeClassifierWrapper(getFullPath());
     }
 }

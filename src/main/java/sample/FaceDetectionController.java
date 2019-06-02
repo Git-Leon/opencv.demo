@@ -181,7 +181,7 @@ public class FaceDetectionController {
             }
         }
 
-        // detect faces
+        // start faces
         this.faceCascade.detectMultiScale(grayFrame, faces, 1.1, 2, 0 | Objdetect.CASCADE_SCALE_IMAGE,
                 new Size(this.absoluteFaceSize, this.absoluteFaceSize), new Size());
 
